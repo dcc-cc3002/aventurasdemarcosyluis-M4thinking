@@ -1,4 +1,4 @@
-package com.example.aventurasdemarcoyluis;
+package com.aventurasdemarcosyluis.types;
 
 /**
  * Enumerator that represents de type of attack that a
