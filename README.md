@@ -8,7 +8,7 @@ son **Marcos** y **Luis**. Ellos son dos hermanos que buscan
 nuevas aventuras.
 
 <div style="text-align: center;">
-    <b>¡Y tú has elegido para ayudarlos en su búsqueda!</b>
+    <b>¡Y tú has sido elegido para ayudarlos en su búsqueda!</b>
 </div>
 
 ## Personajes
