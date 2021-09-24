@@ -68,7 +68,7 @@ recibir el resto de ataques de forma normal (Salto).
 Es importante notar que todos los enemigos tendrán un único tipo de ataque para usar contra los personajes
 principales, en donde se aplicará la misma fórmula de ataque con K = 0,75.
 
-###Tabla de ataques
+### Tabla de ataques
 La tabla de ataques será descrita a continuación:
 
 
