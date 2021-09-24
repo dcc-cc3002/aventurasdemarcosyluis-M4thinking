@@ -1,4 +1,5 @@
 # Las Flipantes Aventuras de Marco y Luis
+**Por: Sebastián Guzmán**
 
 Primero que todo y antes de empezar... 
 
@@ -124,26 +125,26 @@ una clase).
 3. Se prueban sus getters y setters.
    - ***Estos serán usados por muchos tests para hacer pruebas por lo que se necesita que sean públicos 😢.***
    - Las variables de forma interna serán `protected` ó `private`.
-   1. Se verifica que la noción de estar K.O. se cumple cuando el personaje está en 0 HP y las restricciones de HP/FP.
-   2. Se verifican las restricciones de vida y puntos de ataque (como la vida se implementa para todos los personajes,
-   en principio bastaría probar **1.** y **2.** solo con un jugador arbitrario.) 
+   1. Se verifica que la noción de estar K.O. se cumple cuando el personaje está en 0 HP.
+   2. Se verifican las restricciones de vida HP y puntos de ataque FP (como la vida se implementa para todos los personajes,
+   en principio bastaría probar **1.** y **2.** solo con un jugador arbitrario). 
 4. En otro test para enemigos se crean Goomba, Spiny y Boo (a cada uno le corresponderá una clase).
    1. Se imprimen sus "insultos" para revisar si ya existen.
    2. Se prueban sus getters y setters, cada enemigo tendrá su "tipo" que le identifica y guarda su información.
 #### Paso 2: Hacer los tests para que jugadores puedan usar items.
 ***Consideración 6: Dos jugadores son iguales si tienen la misma clase (Ej.: Marcos) y sus estadísticas son las mismas,
-pero no dependen los items que posean. Lo mismo para los enemigos, pero contando también su "tipo".***
-1. Se prueban los constructores de los items (todos los items pertenecerán a la misma clase de items).
+pero no dependen de los items que posean. Lo mismo para los enemigos, pero contando también su "tipo".***
+1. Se prueban los constructores de los items (todos los items extenderán a la misma clase de items).
 2. Se verifica que no son iguales entre si.
-3. Se agregan los items al inventario y se seleccionan para testear su funcionalidad. (La noción de inventario sugiere 
+3. Se agregan los items al inventario y se seleccionan para testear su funcionalidad (La noción de inventario sugiere 
 una nueva clase 
-**Bolsa de Items** en la cual ir llevando el conteo.)
+**Bolsa de Items** en la cual ir llevando el conteo).
 
 #### Paso 3: Tests de ataques entre jugadores y enemigos.
 1. Se verifican las estadísticas propias de cada ataque (Lo que sugiere una clase **Tipo de ataque** que al menos 
 permita guardar la constante de ataque K, la probabilidad de fallar y el costo de puntos de ataque).
 2. Se realiza el ataque de Marcos y Luis a Goomba.
-   1. Se verifican condiciones "normales" y se agrega un tope máximo alto de FP a los jugadores para saber si gastan 
+   1. Se verifican condiciones "normales" y se agrega un tope alto del FP máximo a los jugadores para saber si gastan 
    correctamente sus puntos de ataque.
    2. Luego se testea el ataque de tipo Martillo, como este tiene probabilidad de fallar, se implementa mediante un 
 ciclo `while()` que rescatará la proporción de ataques conectados y fallados, revisando finalmente si su FP se gastó
@@ -151,51 +152,51 @@ ciclo `while()` que rescatará la proporción de ataques conectados y fallados, 
    3. Igual que antes, se testea el Salto, a pesar de tener nula probabilidad de fallar, todos los ataques implementarán
    el ataque de manera probabilística, para que el proceso que haga los cálculos sea generalizable a nuevos ataques con
    probabilidad "p" arbitraria de fallar (y también se verifica el correcto gasto de fp).
-   4. Luego se repite el experimento con 0 puntos de ataque (pero estando "no K.O.")
+   4. Luego se repite el experimento con 0 puntos de ataque (pero estando "no K.O.").
    5. Finalmente se repite el experimento estando K.O. pero con puntos de ataque disponibles, para ver que ataca con 
    daño 0.
 3. Se realiza el ataque de Marcos y Luis a Spiny.
    1. Igual que antes se verifican las c.i. y se usan ciclos `while()` para medir con probabilidad.
-   2. Una salvedad en este caso, es verificar que Spiny hace daño cuando es atacado con salto, el jugador gasta su FP y
+   2. Una salvedad en este caso, es verificar que Spiny hace daño cuando es atacado con Salto, el jugador gasta su FP y
    Spiny no recibe daño.
    3. Igual que en el caso anterior se prueban los ataques para K.O. con FP y sin F.P pero no K.O.
-4. Marcos ataca a Boo
+4. Marcos ataca a Boo.
    1. Se verifican las c.i.
    2. Al igual que antes se hacen ciclos para probar ante probabilidad los ataques.
    3. Se debe considerar ahora el caso en que Boo es atacado con Martillo, ya que aquí Boo no recibe daño, pero sus FP
    igualmente deben ser consumidos, ya que hizo el ataque.
    4. Igual que en el caso anterior se prueban los ataques para K.O. con FP y sin F.P pero no K.O.
-5. Luis ataca a Boo
+5. Luis ataca a Boo.
    1. Este caso es fácil de verificar, solo hace falta revisar que Luis no haga daño alguno a Boo, con ningún ataque.
-6. Goomba y Spiny atacan a Marcos y Luis
+6. Goomba y Spiny atacan a Marcos y Luis.
    1. Ahora debemos verificar que si el jugador está invencible los enemigos no generen daño.
    2. También se debe testear que si el enemigo esta K.O. ataque con daño 0.
-7. Boo ataca a Marcos
+7. Boo ataca a Marcos.
    1. Este caso también es sencillo de verificar, solo basta ver que Boo (estando "no K.O.") no haga daño a Marcos.
-8. Boo ataca a Luis
+8. Boo ataca a Luis.
    1. Nuevamente se debe verificar que el jugador no reciba daño si está invencible.
-   2. Además de testear que el enemigo ataque con daño 0 cuando esta K.O.
+   2. Finalmente se debe testear que el enemigo ataque con daño 0 cuando esta K.O.
 
 #### Paso 4: Diseñar las interfaces y Enums.
-1. Se crean las interfaces de los métodos necesarios que deben poder ejecutar **Personajes**, **Jugadores** y 
+1. Se crean las interfaces de los métodos necesarios que podrán ejecutar **Personajes**, **Jugadores** y 
 **Enemigos**.
    1. En la primera estarán todos los getters y setters comunes, un print para ver el texto y el invariante (abstracto).
    2. En la segunda los getters y setters del FP, los de verificación de invencibilidad y funcionalidad para operar los
    items del inventario (**la clase "Bolsa de Items" no tendrá interface, ya que trabaja bien "sin interactuar" fuera del 
    jugador**), como añadir, seleccionar y obtener el armamento (para visibilidad), la frase típica y
-   el invariante, ahora de HP y FP.
-   3. En la tercera estará el getter y setter de cada **tipo de enemigo** (creado en una clase enum), su insulto y el invariante, en este caso solo
-   de HP.
-2. Se crea la interfaz para los **Items**, que permitirá fungir el item en cuestión y obtener el **tipo de item** (creado en
-una clase enum).
+   el invariante (ahora de HP y FP).
+   3. En la tercera estará el getter y setter para el **tipo de enemigo** (tipos creados en una clase enum), su insulto y el invariante (en este caso solo
+   de HP).
+2. Se crea la interfaz para los **Items**, que permitirá fungir el item en cuestión y obtener el **tipo de item** (tipos creados en
+una clase enum, pero además tendran sus clases propias).
 3. Interfaces para Double Dispatch que deberán implementar las clases del jugador y el enemigo.
    1. Se crea el interface **Ataque del Jugador** y **Ataque del Enemigo**.
-   2. Cada una se encargará de un method de ataque al contrincante y métodos que avisan personaje atacado
+   2. Cada una se encargará de un método de ataque al contrincante y métodos que avisan al personaje atacado
    quien precisamente los está atacando (Ej.:Jugador implementa **Atacado por Boo**, Enemigo
    implementa **Atacado por Luis**).
    
 #### Paso 5: Paso TRIVIAL (¡Programar 🤓!).
-1. Básicamente llevar a cabo la implementación de los métodos descritos en las interfaces.
+1. Básicamente llevar a cabo la implementación de los métodos descritos en las interfaces verificando que se cumplan los tests.
 2. Agregar además los métodos `Equals()`, `hashCode()` y `toString()` en las clases que requieran testeo de duplicidad y
 constructores mencionados en el apartado de testeo.
 3. Programar la **Bolsa de items** con un enum map sobre el enum de los **tipos de item**. para asegurarnos de siempre 
@@ -222,3 +223,7 @@ Hacer este breve resumen (si, breve...).
 
 ### Paso 7: Diagrama UML.
 ![alt text](UML_Diagram_T1_ModelComplete.png)
+
+## Consideraciones Adicionales
+
+Para ejecutar el código, clone este repositorio y corra `Run 'All Tests'` (Si está trabajando desde IntelliJ IDEA) sobre src/test/java o corra los test como le sea conveniente según su entorno preferido de desarrollo. 
