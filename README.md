@@ -14,7 +14,7 @@ nuevas aventuras.
 ## Personajes
 
 Para que Marcos y Luis puedan aventurarse en el Reino Frijol,
-país vecino del Reino Champiñón, ellos deberán enfrentarse distintos
+país vecino del Reino Champiñón, ellos deberán enfrentarse a distintos
 enemigos.
 
 Por lo que le será útil saber cuáles serán las estadísticas de los
@@ -36,7 +36,6 @@ podría aumentar al pasar los niveles. Misma lógica para los FP.***
 ### Tipos de ataques de los jugadores
 Cada personaje principal, en su turno podrá ejecutar dos tipos de ataque:
 - **Salto**:
-
   - Corresponde a un ataque normal, de bajo daño, pero que siempre lo recibe el enemigo.
   - Cuesta 1 FP
   - Su constante K para calcular el daño es 1
