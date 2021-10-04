@@ -1,11 +1,11 @@
 
 import com.example.aventurasdemarcoyluis.characters.enemiesconfig.EnemyType;
 import com.example.aventurasdemarcoyluis.characters.enemiesconfig.IEnemy;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Boo;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Goomba;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Spiny;
+import com.example.aventurasdemarcoyluis.characters.enemiesconfig.Boo;
+import com.example.aventurasdemarcoyluis.characters.enemiesconfig.Goomba;
+import com.example.aventurasdemarcoyluis.characters.enemiesconfig.Spiny;
 import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.players.Marcos;
+import com.example.aventurasdemarcoyluis.characters.playersconfig.Marcos;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

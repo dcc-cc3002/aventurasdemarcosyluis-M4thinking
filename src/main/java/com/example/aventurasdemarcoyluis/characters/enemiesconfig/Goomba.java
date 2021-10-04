@@ -1,4 +1,4 @@
-package com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies;
+package com.example.aventurasdemarcoyluis.characters.enemiesconfig;
 
 import com.example.aventurasdemarcoyluis.characters.enemiesconfig.AbstractEnemy;
 import com.example.aventurasdemarcoyluis.characters.enemiesconfig.EnemyType;
