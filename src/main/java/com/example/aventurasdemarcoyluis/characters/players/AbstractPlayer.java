@@ -1,8 +1,7 @@
-package com.example.aventurasdemarcoyluis.characters.playersconfig;
+package com.example.aventurasdemarcoyluis.characters.players;
 
 import com.example.aventurasdemarcoyluis.characters.AbstractCharacter;
-import com.example.aventurasdemarcoyluis.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.IEnemy;
+import com.example.aventurasdemarcoyluis.characters.enemies.IEnemy;
 import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.itemsconfig.ItemBag;
 
@@ -13,7 +12,7 @@ import java.util.Objects;
  *
  *  @author Sebastián Guzmán O.
  */
-public abstract class AbstractPlayer extends AbstractCharacter implements IPlayer,IPlayerAttack {
+public abstract class AbstractPlayer extends AbstractCharacter implements IPlayer {
     private int fp;
     private int maxFp;
     private boolean invincible;
@@ -123,18 +122,10 @@ public abstract class AbstractPlayer extends AbstractCharacter implements IPlaye
     /* Attack logic from IPlayerAttack. */
 
     @Override
-    public abstract void attack(IEnemy anEnemy, AttackType anAttack);
-
-    @Override
     public void attackedByEnemy(IEnemy anEnemy) {
         int damage = damageReceived(anEnemy);
         //If negative, hp becomes 0, and player will be K.O.
         this.setHp(this.getHp() - damage);
-    }
-
-    @Override
-    public void attackedByBoo(IEnemy anEnemy){
-        this.attackedByEnemy(anEnemy);
     }
 
     @Override

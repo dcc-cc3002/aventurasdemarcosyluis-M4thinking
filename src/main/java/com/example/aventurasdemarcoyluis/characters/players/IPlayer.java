@@ -1,11 +1,14 @@
-package com.example.aventurasdemarcoyluis.characters.playersconfig;
+package com.example.aventurasdemarcoyluis.characters.players;
 
 import com.example.aventurasdemarcoyluis.characters.ICharacter;
+import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.characters.enemies.IEnemy;
+import com.example.aventurasdemarcoyluis.characters.enemies.Spiny;
 import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.itemsconfig.ItemBag;
 
 /** Interface that models the players and that each of them must implement. */
-public interface IPlayer extends ICharacter,IPlayerAttack  {
+public interface IPlayer extends ICharacter{
 
     /**
      * Gets the current player's fight points.
@@ -82,4 +85,42 @@ public interface IPlayer extends ICharacter,IPlayerAttack  {
 
     /** Writes the typical phrase of the player in the terminal. */
     void typicalPhrase();
+
+    /*Attack logic common to players*/
+
+    /**
+     * Calculates the damage inflicted by an {@code IEnemy}
+     * to a {@code IPlayer}, by the game's formula.
+     * <p>
+     *     If {@code IEnemy} is defeated (K.O.), or the
+     * 	   {@code IPlayer} is invincible, the damage is 0.
+     * </p>
+     * @param anEnemy The Enemy who attacked him.
+     * @return Returns the damage to be inflicted.
+     */
+    int damageReceived(IEnemy anEnemy);
+
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * an enemy, to act on it.
+     * @param anEnemy The attacking enemy.
+     */
+    void attackedByEnemy(IEnemy anEnemy);
+
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * the enemy Boo, to act on it.
+     * @param spiny The attacking enemy Spiny.
+     */
+    void attackedBySpiny(Spiny spiny);
+
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * the enemy Boo, to act on it.
+     * @param goomba The attacking enemy Goomba.
+     */
+    void attackedByGoomba(Goomba goomba);
 }

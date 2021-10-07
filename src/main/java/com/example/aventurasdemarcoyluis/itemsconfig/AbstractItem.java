@@ -1,6 +1,6 @@
 package com.example.aventurasdemarcoyluis.itemsconfig;
 
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
 
 import java.util.Objects;
 

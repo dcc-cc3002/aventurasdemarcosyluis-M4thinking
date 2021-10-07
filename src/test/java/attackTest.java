@@ -1,11 +1,10 @@
 import com.example.aventurasdemarcoyluis.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.IEnemy;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Boo;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Goomba;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.enemies.Spiny;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.players.Luis;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.players.Marcos;
+import com.example.aventurasdemarcoyluis.characters.enemies.Boo;
+import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.characters.enemies.Spiny;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
+import com.example.aventurasdemarcoyluis.characters.players.Luis;
+import com.example.aventurasdemarcoyluis.characters.players.Marcos;
 import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.itemsconfig.items.Star;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class attackTest {
 
-	private IPlayer testMarcos;
-	private IPlayer testLuis;
+	private Marcos testMarcos;
+	private Luis testLuis;
 
-	private IEnemy testGoomba;
-	private IEnemy testSpiny;
-	private IEnemy testBoo;
+	private Goomba testGoomba;
+	private Spiny testSpiny;
+	private Boo testBoo;
 
 	private IItem testStar;
 
@@ -548,23 +547,6 @@ public class attackTest {
 	}
 
 	@Test
-	public void luisAttackBooTest() {
-		//We test several times to go beyond the effect of the probability of failure (25%).
-		for (int i = 0; i < 20; i++) {
-			testLuis.attack(testBoo, AttackType.MARTILLO);
-			assertEquals(17, testBoo.getHp());//Boo can't be attacked by Marcos.
-			assertEquals(6, testLuis.getFp());
-		}
-
-		//We test several times to go beyond the effect of the probability of failure (0%).
-		for (int i = 0; i < 20; i++) {
-			testLuis.attack(testBoo, AttackType.SALTO);
-			assertEquals(17, testBoo.getHp());//Boo can't be attacked by Marcos.
-			assertEquals(6, testLuis.getFp());
-		}
-	}
-
-	@Test
 	public void goombaAttackMarcosLuisTest() {
 		testMarcos.addItem(testStar);
 		testLuis.addItem(testStar);
@@ -647,14 +629,6 @@ public class attackTest {
 
 		assertEquals(3, testMarcos.getHp());
 		assertEquals(6, testLuis.getHp());
-	}
-
-	@Test
-	public void booAttackMarcosTest() {
-		testBoo.attack(testMarcos);
-		assertFalse(testBoo.isKo());
-		//Marcos can't be attacked by Boo.
-		assertEquals(11, testMarcos.getHp());
 	}
 
 	@Test
