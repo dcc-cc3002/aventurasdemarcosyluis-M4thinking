@@ -227,3 +227,37 @@ Hacer este breve resumen (si, breve...).
 ## Consideraciones Adicionales
 
 Para ejecutar el código, clone este repositorio y corra `Run 'All Tests'` (Si está trabajando desde IntelliJ IDEA) sobre src/test/java o corra los test como le sea conveniente según su entorno preferido de desarrollo. 
+
+
+
+## Tarea 2: Entrega parcial 1 
+
+Para esta breve entrega, se modificó el ataque realizado por los personajes, con el fin de mejorar el diseño propuesto
+la primera entrega. Para esto, se implementaron distintas interfaces que ayudaron a comprender mejor el rol que cumple
+cada personaje en el juego de acuerdo a la tabla de ataques anteriormente mencionada.
+
+##### Interfaces
+
+**1.-IGenericPlayer: Un jugador se dirá genérico, si ataca a todos los enemigos.**
+**1.-IScaredPlayer: Un jugador se dirá asustado, si no ataca a los enemigos espectrales.**
+**1.-ISpectralEnemy: Un enemigo se dirá espectral, si ataca solo a los jugadores asustados.**
+**1.-IGenericEnemy: Un enemigo se dirá genérico, si ataca a todos los jugadores.**
+**1.-ISpecialReactionEnemy: Un enemigo se dirá de reacción especial, si al ser atacado puede actuar o ser atacado de forma distinta
+al ataque por fórmula convencional de ataque.**
+
+Una vez dicho esto, se implementan las interfaces, donde Marcos será un jugador genérico, Luis será un jugador asustado,
+Spiny y Goomba serán enemigos genéricos, pero además, Spiny será un enemigo de reacción especial al igual que Boo.
+
+Con esto en mente, cada interfaz implementó el método de ataque hacia el personaje que puede atacar, y se le agregaron los 
+ataques recibidos por cada uno de los personajes que efectivamente pueden atacarle.
+
+A continuación se presenta el nuevo diagrama de clases que resumen la estructura del juego por el momento, y que recibirá
+actualizaciones en el corto plazo.
+
+![alt text](ClassAttackModel.png)
+
+
+Respecto al resto de modificaciones, se borraron los test correspondientes a enemigos y jugadores que no podían atacar al
+contrincante, ahora simplemente saldrá un error en pantalla si se intenta ejecutar un ataque no válido. Igualmente toda la 
+funcionalidad sigue testeada, ya que solo cambió el diseño y no el propósito. Además de esto, se reconectaron de mejor forma
+las interfaces para que el diagrama de clases tenga una intención más clara.
