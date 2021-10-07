@@ -1,4 +1,4 @@
-package com.example.aventurasdemarcoyluis.characters.enemiesconfig;
+package com.example.aventurasdemarcoyluis.characters.enemies;
 
 /** All enemies must have their EnemyType enum. */
 public enum EnemyType {

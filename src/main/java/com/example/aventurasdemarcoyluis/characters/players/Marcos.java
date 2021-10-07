@@ -1,13 +1,12 @@
-package com.example.aventurasdemarcoyluis.characters.playersconfig;
+package com.example.aventurasdemarcoyluis.characters.players;
 
 import com.example.aventurasdemarcoyluis.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.IEnemy;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.AbstractPlayer;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayerAttack;
+import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.characters.enemies.IEnemy;
+import com.example.aventurasdemarcoyluis.characters.enemies.Spiny;
 
 /** Class that models the functionality of the player Marcos. */
-public class Marcos extends AbstractPlayer implements IPlayer, IPlayerAttack {
+public class Marcos extends AbstractPlayer implements IGenericPlayer {
 
     /**
      * Creates a new player "Marcos".
@@ -23,12 +22,19 @@ public class Marcos extends AbstractPlayer implements IPlayer, IPlayerAttack {
 
     @Override
     public void attack(IEnemy anEnemy, AttackType anAttack){
-        anEnemy.attackByMarcos(this, anAttack);
+        if (getFp() >= anAttack.fpCost) {
+            anEnemy.attackedByMarcos(this, anAttack);
+        }
     }
 
     @Override
-    public void attackedByBoo(IEnemy anEnemy){
-        //Boo can't attack Marcos.
+    public void attackedByGoomba(Goomba anEnemy) {
+        this.attackedByEnemy(anEnemy);
+    }
+
+    @Override
+    public void attackedBySpiny(Spiny spiny) {
+        this.attackedByEnemy(spiny);
     }
 
     @Override

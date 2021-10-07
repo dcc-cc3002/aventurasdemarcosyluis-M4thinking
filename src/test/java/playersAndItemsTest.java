@@ -1,8 +1,8 @@
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.IEnemy;
-import com.example.aventurasdemarcoyluis.characters.enemiesconfig.Goomba;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.Luis;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.Marcos;
+import com.example.aventurasdemarcoyluis.characters.enemies.IEnemy;
+import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
+import com.example.aventurasdemarcoyluis.characters.players.Luis;
+import com.example.aventurasdemarcoyluis.characters.players.Marcos;
 
 import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.itemsconfig.items.Star;

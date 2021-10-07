@@ -1,6 +1,6 @@
 package com.example.aventurasdemarcoyluis.itemsconfig;
 
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
 
 
 /** Interface that models the functionalities that every item should have. */

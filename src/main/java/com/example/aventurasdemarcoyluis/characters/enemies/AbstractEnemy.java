@@ -1,13 +1,13 @@
-package com.example.aventurasdemarcoyluis.characters.enemiesconfig;
+package com.example.aventurasdemarcoyluis.characters.enemies;
 
 import com.example.aventurasdemarcoyluis.characters.AbstractCharacter;
 import com.example.aventurasdemarcoyluis.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
 
 import java.util.Objects;
 
 /** Class that represent an enemy in the game. Every enemy must extend this class. */
-public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy, IEnemyAttack{
+public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy {
     private EnemyType type;
 
     /**
@@ -71,22 +71,6 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy,
             return (int) ( anAttack.attackConstant * aPlayer.getAtk() * ( (double) aPlayer.getLvl() / (double) this.getDef() ) + 0.5 );
         }
     }
-
-    @Override
-    public void attack(IPlayer aPlayer){
-        aPlayer.attackedByEnemy(this);
-    }
-
-    @Override
-    public void attackByLuis(IPlayer luis, AttackType anAttack){
-        if ( luis.getFp() >= anAttack.fpCost ) { this.attackedByPlayer(luis, anAttack); }
-    }
-
-    @Override
-    public void attackByMarcos(IPlayer marcos, AttackType anAttack){
-        if ( marcos.getFp() >= anAttack.fpCost ) { this.attackedByPlayer(marcos, anAttack); }
-    }
-
 
     /**
      * Overwriting the equals method based on enemy's statistics of {@code atk},

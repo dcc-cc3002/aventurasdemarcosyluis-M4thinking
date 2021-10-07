@@ -1,12 +1,11 @@
 package com.example.aventurasdemarcoyluis.itemsconfig.items;
 
-import com.example.aventurasdemarcoyluis.characters.playersconfig.IPlayer;
-import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
+import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
 import com.example.aventurasdemarcoyluis.itemsconfig.AbstractItem;
 import com.example.aventurasdemarcoyluis.itemsconfig.ItemType;
 
 /** Class that models an item of type RedMushroom */
-public class RedMushroom extends AbstractItem implements IItem {
+public class RedMushroom extends AbstractItem {
 
     /** Item constructor with {@code ItemType} {@code RED_MUSHROOM}. */
     public RedMushroom() {
