@@ -239,10 +239,14 @@ cada personaje en el juego de acuerdo a la tabla de ataques anteriormente mencio
 ##### Interfaces
 
 **1.-IGenericPlayer: Un jugador se dirá genérico, si ataca a todos los enemigos.**
-**1.-IScaredPlayer: Un jugador se dirá asustado, si no ataca a los enemigos espectrales.**
-**1.-ISpectralEnemy: Un enemigo se dirá espectral, si ataca solo a los jugadores asustados.**
-**1.-IGenericEnemy: Un enemigo se dirá genérico, si ataca a todos los jugadores.**
-**1.-ISpecialReactionEnemy: Un enemigo se dirá de reacción especial, si al ser atacado puede actuar o ser atacado de forma distinta
+
+**2.-IScaredPlayer: Un jugador se dirá asustado, si no ataca a los enemigos espectrales.**
+
+**3.-ISpectralEnemy: Un enemigo se dirá espectral, si ataca solo a los jugadores asustados.**
+
+**4.-IGenericEnemy: Un enemigo se dirá genérico, si ataca a todos los jugadores.**
+
+**5.-ISpecialReactionEnemy: Un enemigo se dirá de reacción especial, si al ser atacado puede actuar o ser atacado de forma distinta
 al ataque por fórmula convencional de ataque.**
 
 Una vez dicho esto, se implementan las interfaces, donde Marcos será un jugador genérico, Luis será un jugador asustado,
