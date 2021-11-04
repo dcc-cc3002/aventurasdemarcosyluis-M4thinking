@@ -5,6 +5,8 @@ import com.example.aventurasdemarcoyluis.model.characters.enemies.IGenericEnemy;
 import com.example.aventurasdemarcoyluis.model.characters.players.IGenericPlayer;
 import com.example.aventurasdemarcoyluis.model.characters.players.IScaredPlayer;
 
+import java.util.List;
+
 /** Interface that models any character within the video game. */
 public interface ICharacter {
 
@@ -116,5 +118,6 @@ public interface ICharacter {
 
     boolean canUseOrReceiveItemInBattle();
 
-
+    List<ICharacter> getAttackableCharacters(List<ICharacter> characters);
+    
 }

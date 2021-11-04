@@ -1,11 +1,14 @@
 package com.example.aventurasdemarcoyluis.model.characters.players;
 
 import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
+import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.IEnemy;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Spiny;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.ItemBag;
+
+import java.util.List;
 
 /** Interface that models the players and that each of them must implement. */
 public interface IPlayer extends ICharacter{
@@ -120,4 +123,6 @@ public interface IPlayer extends ICharacter{
      * @param goomba The attacking enemy Goomba.
      */
     void attackedByGoomba(Goomba goomba);
+
+	void attackFromList(AttackType anAttack, int enemyIndex, List<ICharacter> attackableCharactersBy);
 }

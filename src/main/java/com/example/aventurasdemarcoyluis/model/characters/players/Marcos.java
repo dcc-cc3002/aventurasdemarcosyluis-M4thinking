@@ -1,7 +1,11 @@
 package com.example.aventurasdemarcoyluis.model.characters.players;
 
+import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /** Class that models the functionality of the player Marcos. */
 public class Marcos extends AbstractPlayer implements IGenericPlayer {
@@ -31,6 +35,11 @@ public class Marcos extends AbstractPlayer implements IGenericPlayer {
     }
 
     @Override
+    public void attackFromList(AttackType anAttack, int enemyIndex, List<ICharacter> attackableCharactersBy) {
+        attack((IEnemy) attackableCharactersBy.get(enemyIndex), anAttack);
+    }
+
+    @Override
     public void attackedBySpiny(Spiny spiny) {
         this.attackedByEnemy(spiny);
     }
@@ -55,4 +64,14 @@ public class Marcos extends AbstractPlayer implements IGenericPlayer {
         return false;
     }
 
+
+    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
+        List<ICharacter> attackableCharacters = new LinkedList<>();
+        for(ICharacter attackableCharacter: characters){
+            if(attackableCharacter.isAttackableBy(this)) {
+                attackableCharacters.add(attackableCharacter);
+            }
+        }
+        return attackableCharacters;
+    }
 }

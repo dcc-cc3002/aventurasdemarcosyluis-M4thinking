@@ -1,5 +1,8 @@
 package com.example.aventurasdemarcoyluis.model.characters;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Represents the character's behavior.
  * <p>
@@ -109,5 +112,7 @@ public abstract class AbstractCharacter implements ICharacter{
 
     @Override
     public abstract boolean invariant();
+
+    public abstract List<ICharacter> getAttackableCharacters(List<ICharacter> characters);
 }
 

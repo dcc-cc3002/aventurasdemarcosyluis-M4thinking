@@ -1,7 +1,11 @@
 package com.example.aventurasdemarcoyluis.model.characters.enemies;
 
+import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.players.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /** Class representing the behavior of the enemy Spiny. */
 public class Spiny extends AbstractEnemy implements IGenericEnemy, ISpecialReactionEnemy {
@@ -66,6 +70,17 @@ public class Spiny extends AbstractEnemy implements IGenericEnemy, ISpecialReact
     @Override
     public boolean isAttackableBy(IScaredPlayer aPlayer) {
         return true;
+    }
+
+    @Override
+    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
+        List<ICharacter> attackableCharacters = new LinkedList<>();
+        for(ICharacter attackableCharacter: characters){
+            if(attackableCharacter.isAttackableBy(this)) {
+                attackableCharacters.add(attackableCharacter);
+            }
+        }
+        return attackableCharacters;
     }
 }
 

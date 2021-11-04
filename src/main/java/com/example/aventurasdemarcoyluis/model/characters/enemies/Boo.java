@@ -1,10 +1,14 @@
 package com.example.aventurasdemarcoyluis.model.characters.enemies;
 
+import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.players.IGenericPlayer;
 import com.example.aventurasdemarcoyluis.model.characters.players.IPlayer;
 import com.example.aventurasdemarcoyluis.model.characters.players.IScaredPlayer;
 import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /** Class representing the behavior of the enemy Boo. */
 public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReactionEnemy {
@@ -64,5 +68,16 @@ public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReact
     @Override
     public boolean isAttackableBy(IScaredPlayer aPlayer) {
         return false;
+    }
+
+    @Override
+    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
+        List<ICharacter> attackableCharacters = new LinkedList<>();
+        for(ICharacter attackableCharacter: characters){
+            if(attackableCharacter.isAttackableBy(this)) {
+                attackableCharacters.add(attackableCharacter);
+            }
+        }
+        return attackableCharacters;
     }
 }
