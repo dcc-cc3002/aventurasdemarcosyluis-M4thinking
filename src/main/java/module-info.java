@@ -3,14 +3,14 @@ module com.example.aventurasdemarcoyluis {
     requires javafx.fxml;
 
     opens com.example.aventurasdemarcoyluis to javafx.fxml;
-    exports com.example.aventurasdemarcoyluis.characters;
-    opens com.example.aventurasdemarcoyluis.characters to javafx.fxml;
-    exports com.example.aventurasdemarcoyluis.itemsconfig;
-    opens com.example.aventurasdemarcoyluis.itemsconfig to javafx.fxml;
-    exports com.example.aventurasdemarcoyluis.characters.players;
-    opens com.example.aventurasdemarcoyluis.characters.players to javafx.fxml;
-    exports com.example.aventurasdemarcoyluis.characters.enemies;
-    opens com.example.aventurasdemarcoyluis.characters.enemies to javafx.fxml;
-    exports com.example.aventurasdemarcoyluis.characters.attackconfig;
-    opens com.example.aventurasdemarcoyluis.characters.attackconfig to javafx.fxml;
+    exports com.example.aventurasdemarcoyluis.model.characters;
+    opens com.example.aventurasdemarcoyluis.model.characters to javafx.fxml;
+    exports com.example.aventurasdemarcoyluis.model.itemsconfig;
+    opens com.example.aventurasdemarcoyluis.model.itemsconfig to javafx.fxml;
+    exports com.example.aventurasdemarcoyluis.model.characters.players;
+    opens com.example.aventurasdemarcoyluis.model.characters.players to javafx.fxml;
+    exports com.example.aventurasdemarcoyluis.model.characters.enemies;
+    opens com.example.aventurasdemarcoyluis.model.characters.enemies to javafx.fxml;
+    exports com.example.aventurasdemarcoyluis.model.characters.attackconfig;
+    opens com.example.aventurasdemarcoyluis.model.characters.attackconfig to javafx.fxml;
 }
