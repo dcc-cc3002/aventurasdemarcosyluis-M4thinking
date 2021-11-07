@@ -2,8 +2,9 @@ package com.example.aventurasdemarcoyluis.model.characters.enemies;
 
 import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.model.characters.players.IPlayer;
-import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
+import com.example.aventurasdemarcoyluis.model.characters.players.*;
+
+import java.util.List;
 
 /** Interface that models the particular characteristics of an enemy. */
 public interface IEnemy extends ICharacter {
@@ -49,11 +50,58 @@ public interface IEnemy extends ICharacter {
     void attackedByMarcos(Marcos marcos, AttackType anAttack);
 
     /**
-     * Method that warns the player
+     * Method that warns the enemy
      * that he is being attacked by
-     * an enemy, to act on it.
+     * the player Marcos, to act on it.
+     * @param luis The attacking player Luis.
+     * @param anAttack Type of attack received from Luis.
+     */
+    void attackedByLuis(Luis luis, AttackType anAttack);
+
+    /**
+     * Method that warns the Enemy
+     * that he is being attacked by
+     * a Player, to act on it.
      * @param aPlayer The attacking player.
      * @param anAttack Type of attack received from the player.
      */
     void attackedByPlayer(IPlayer aPlayer, AttackType anAttack);
+
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * an enemy, to act on it.
+     * @param aPlayer The attacked player.
+     */
+    void attack(IPlayer aPlayer);
+
+    /**
+     * Returns a sublist of players who can attack, given a list of more players
+     * @param listOfPlayers player list to filter from
+     * @return Sublist of possible players that the enemy can attack
+     */
+    List<IPlayer> getAttackablePlayers(List<IPlayer> listOfPlayers);
+
+    /**
+     * Allows to fix the results after attacks with probability with a seed
+     * @param seed Number that fixes the obtained results
+     */
+    void setSeed(long seed);
+
+
+    /**
+     * Delivers confirmation of whether this enemy
+     * is attackable by a {@code IGenericPlayer}.
+     * @param aPlayer The player that is verified
+     * @return {@code true} if the player can attack it, {@code false} if not.
+     */
+    boolean isAttackableBy(IGenericPlayer aPlayer);
+
+    /**
+     * Delivers confirmation of whether this enemy
+     * is attackable by a {@code IScaredPlayer}.
+     * @param aPlayer The player that is verified
+     * @return {@code true} if the player can attack it, {@code false} if not.
+     */
+    boolean isAttackableBy(IScaredPlayer aPlayer);
 }

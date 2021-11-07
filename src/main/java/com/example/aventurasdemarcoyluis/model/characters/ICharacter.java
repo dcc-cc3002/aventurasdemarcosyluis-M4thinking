@@ -1,12 +1,5 @@
 package com.example.aventurasdemarcoyluis.model.characters;
 
-import com.example.aventurasdemarcoyluis.model.characters.enemies.IEspectralEnemy;
-import com.example.aventurasdemarcoyluis.model.characters.enemies.IGenericEnemy;
-import com.example.aventurasdemarcoyluis.model.characters.players.IGenericPlayer;
-import com.example.aventurasdemarcoyluis.model.characters.players.IScaredPlayer;
-
-import java.util.List;
-
 /** Interface that models any character within the video game. */
 public interface ICharacter {
 
@@ -108,16 +101,4 @@ public interface ICharacter {
      */
     boolean invariant();
 
-    boolean isAttackableBy(IGenericEnemy anEnemy);
-
-    boolean isAttackableBy(IEspectralEnemy anEnemy);
-
-    boolean isAttackableBy(IGenericPlayer aPlayer);
-
-    boolean isAttackableBy(IScaredPlayer aPlayer);
-
-    boolean canUseOrReceiveItemInBattle();
-
-    List<ICharacter> getAttackableCharacters(List<ICharacter> characters);
-    
 }

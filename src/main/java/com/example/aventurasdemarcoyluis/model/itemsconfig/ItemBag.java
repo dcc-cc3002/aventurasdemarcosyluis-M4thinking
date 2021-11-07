@@ -52,6 +52,17 @@ public class ItemBag {
     }
 
     /**
+     * Add a specific quantity of the item.
+     * @param quantity Amount to be added
+     * @param anItem Item to be added.
+     */
+    public void addItems(int quantity, IItem anItem) {
+        for (int i = 0; i < quantity; i++) {
+            addItem(anItem);
+        }
+    }
+
+    /**
      * Checks if an item exists in the armament, that is, its quantity is greater than 0.
      * @param anItem Item that will be verified in the {@code ItemBag}.
      * @return {@code true} if it exists, {@code false} if not.

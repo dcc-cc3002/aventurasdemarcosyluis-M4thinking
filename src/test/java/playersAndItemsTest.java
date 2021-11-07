@@ -26,8 +26,6 @@ public class playersAndItemsTest {
     private IItem testRedMushroom;
     private IItem testHoneySyrup;
 
-    private static ItemBag chest;
-
     /**
      * The message tests were based on: <a href="https://morioh.com/p/c14998c5c076 ">Unit Testing of System.out.println() with JUnit - Morioh</a>
      */
@@ -48,8 +46,8 @@ public class playersAndItemsTest {
         testHoneySyrup = new HoneySyrup();
 
         //Shared Chest from static method
-        chest = ItemBag.instance();
-        chest.initializeEmpty();
+        ItemBag chest = ItemBag.instance();
+        chest.initializeEmpty(); //Global variable
     }
 
     @AfterEach

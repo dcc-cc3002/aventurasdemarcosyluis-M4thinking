@@ -4,9 +4,12 @@ import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Spiny;
 import com.example.aventurasdemarcoyluis.model.characters.players.Luis;
 import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
-import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +22,17 @@ public class attackTest {
 	private Spiny testSpiny;
 	private Boo testBoo;
 
+	/**
+	 * The message tests were based on: <a href="https://morioh.com/p/c14998c5c076 ">Unit Testing of System.out.println() with JUnit - Morioh</a>
+	 */
+	private final PrintStream standardOut = System.out;
+	private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
 	@BeforeEach
 	public void setUp() {
+		//Where the values will now be printed.
+		System.setOut(new PrintStream(outputStreamCaptor));
+
 		//Players
 		testMarcos = new Marcos(11, 9, 11, 5, 3);
 		testLuis = new Luis(12, 10, 13, 6, 4);
@@ -29,6 +41,12 @@ public class attackTest {
 		testGoomba = new Goomba(10, 4, 15, 8);
 		testSpiny = new Spiny(12, 4, 18, 8);
 		testBoo = new Boo(5, 8, 17, 8);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		//Restoring standard output stream.
+		System.setOut(standardOut);
 	}
 
 	@Test
@@ -602,6 +620,31 @@ public class attackTest {
 		testBoo.attack(testLuis);
 
 		assertEquals(10, testLuis.getHp());
+	}
+
+	@Test
+	public void luisAttackBooTest(){
+		assertEquals(17, testBoo.getHp());
+
+		testLuis.attack(testBoo, AttackType.SALTO);
+
+		testBoo.setSeed(4993); //Task 2 has seed's (such a better way to test)
+
+		assertEquals(17, testBoo.getHp());
+
+		testLuis.attack(testBoo, AttackType.MARTILLO);
+
+		assertEquals(17, testBoo.getHp());
+
+	}
+
+	@Test
+	public void booAttackMarcosTest(){
+		assertEquals(11, testMarcos.getHp());
+
+		testBoo.attack(testMarcos);
+
+		assertEquals(11, testMarcos.getHp());
 	}
 }
 

@@ -5,10 +5,12 @@ import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackTyp
 import com.example.aventurasdemarcoyluis.model.characters.players.IPlayer;
 
 import java.util.Objects;
+import java.util.Random;
 
 /** Class that represent an enemy in the game. Every enemy must extend this class. */
 public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy {
     private EnemyType type;
+    private long seed;
 
     /**
      * Creates a new Enemy
@@ -27,6 +29,7 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
     protected AbstractEnemy(int ATK, int DEF, int HP, int LVL, EnemyType type ){
         super(ATK, DEF, HP, LVL);
         this.type=type;
+        this.seed = 0;
     }
 
     /* Main characteristics of IEnemy */
@@ -42,28 +45,19 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
     }
 
     @Override
-    public boolean canUseOrReceiveItemInBattle(){
-        return false;
-    }
-
-    @Override
-    public boolean isAttackableBy(IGenericEnemy anEnemy) {
-        return false;
-    }
-
-    @Override
-    public boolean isAttackableBy(IEspectralEnemy anEnemy) {
-        return false;
-    }
-
-    @Override
     public boolean invariant() {
         return (this.maxHp>= this.hp && this.hp>= 0);
     }
 
-    public abstract void insult();
+    @Override
+    public abstract void attack(IPlayer aPlayer);
 
     /*Attack logic from IEnemyAttack*/
+
+    @Override
+    public void setSeed(long seed){
+        this.seed = seed;
+    }
 
     @Override
     public void attackedByPlayer(IPlayer aPlayer, AttackType anAttack) {
@@ -71,7 +65,11 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
         int damage = damageReceived(aPlayer, anAttack);
 
         //Random Boolean with the probability of failing the attack
-        boolean doRandomAttack = Math.random() > anAttack.failProbability;
+        Random rand = new Random();
+        if(seed!=0){
+            rand.setSeed(seed);
+        }
+        boolean doRandomAttack = rand.nextDouble() > anAttack.failProbability;
         if ( doRandomAttack ) { this.setHp(this.getHp() - damage);}
         //Fp discount
         aPlayer.setFp(aPlayer.getFp() - anAttack.fpCost);
@@ -86,6 +84,9 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
             return (int) ( anAttack.attackConstant * aPlayer.getAtk() * ( (double) aPlayer.getLvl() / (double) this.getDef() ) + 0.5 );
         }
     }
+
+    @Override
+    public abstract void insult();
 
     /**
      * Overwriting the equals method based on enemy's statistics of {@code atk},

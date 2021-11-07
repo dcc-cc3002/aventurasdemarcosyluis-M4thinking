@@ -21,6 +21,7 @@ public abstract class AbstractItem implements IItem{
         this.type = anItemType;
     }
 
+    @Override
     public ItemType getItemType() { return this.type;}
 
     @Override

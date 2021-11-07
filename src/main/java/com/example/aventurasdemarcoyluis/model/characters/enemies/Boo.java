@@ -1,11 +1,7 @@
 package com.example.aventurasdemarcoyluis.model.characters.enemies;
 
-import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.model.characters.players.IGenericPlayer;
-import com.example.aventurasdemarcoyluis.model.characters.players.IPlayer;
-import com.example.aventurasdemarcoyluis.model.characters.players.IScaredPlayer;
-import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
+import com.example.aventurasdemarcoyluis.model.characters.players.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +21,7 @@ public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReact
     }
 
     @Override
-    public void attack(IScaredPlayer aPlayer){
+    public void attack(IPlayer aPlayer){
         aPlayer.attackedByBoo(this);
     }
 
@@ -37,6 +33,11 @@ public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReact
     @Override
     public void attackedByMarcos(Marcos marcos, AttackType anAttack) {
         this.attackCondition(marcos, anAttack);
+    }
+
+    @Override
+    public void attackedByLuis(Luis luis, AttackType anAttack) {
+        print("You cant attack me");
     }
 
     /**
@@ -71,13 +72,13 @@ public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReact
     }
 
     @Override
-    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
-        List<ICharacter> attackableCharacters = new LinkedList<>();
-        for(ICharacter attackableCharacter: characters){
-            if(attackableCharacter.isAttackableBy(this)) {
-                attackableCharacters.add(attackableCharacter);
+    public List<IPlayer> getAttackablePlayers(List<IPlayer> listOfPlayers) {
+        List<IPlayer> attackablePlayers = new LinkedList<>();
+        for(IPlayer attackablePlayer: listOfPlayers){
+            if(attackablePlayer.isAttackableBy(this) && !this.isKo()) {
+                attackablePlayers.add(attackablePlayer);
             }
         }
-        return attackableCharacters;
+        return attackablePlayers;
     }
 }

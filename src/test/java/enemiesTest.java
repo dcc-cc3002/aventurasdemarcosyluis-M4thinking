@@ -47,7 +47,7 @@ public class enemiesTest {
     @Test
     public void constructorGoombaTest() { //First message test.
         testGoomba.insult();
-        assertEquals("frrr, frrr, it's Gooomba!", outputStreamCaptor.toString().trim());
+        assertEquals("frrr, frrr, it's Goomba!", outputStreamCaptor.toString().trim());
     }
 
     @Test

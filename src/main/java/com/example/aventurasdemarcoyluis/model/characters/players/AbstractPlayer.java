@@ -1,6 +1,7 @@
 package com.example.aventurasdemarcoyluis.model.characters.players;
 
 import com.example.aventurasdemarcoyluis.model.characters.AbstractCharacter;
+import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.IEnemy;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.ItemBag;
@@ -40,6 +41,11 @@ public abstract class AbstractPlayer extends AbstractCharacter implements IPlaye
     }
 
     /* Main characteristics of IPlayer. */
+
+    @Override
+    public void increaseOrDecreaseFp(int numberOfFp){
+        this.setFp(getFp()+numberOfFp);
+    }
 
     @Override
     public int getFp() {
@@ -83,23 +89,17 @@ public abstract class AbstractPlayer extends AbstractCharacter implements IPlaye
     }
 
     @Override
-    public boolean canUseOrReceiveItemInBattle(){
-        return true;
-    }
-
-    @Override
-    public boolean isAttackableBy(IGenericPlayer aPlayer) {
-        return false;
-    }
-
-    @Override
-    public boolean isAttackableBy(IScaredPlayer aPlayer) {
-        return false;
-    }
-
-    @Override
     public void addItem(IItem anItem) {
         armament.addItem(anItem);
+    }
+
+    @Override
+    public abstract void attack(IEnemy anEnemy, AttackType anAttack);
+
+    @Override
+    public void restoreDynamicStats() {
+        setHp(getMaxHp());
+        setFp(getMaxFp());
     }
 
     @Override
@@ -149,7 +149,6 @@ public abstract class AbstractPlayer extends AbstractCharacter implements IPlaye
             return (int) ( 0.75 * anEnemy.getAtk() * ( (double) anEnemy.getLvl() / (double) this.getDef() ) + 0.5 );
         }
     }
-
     /* Identifying methods. */
 
     /**

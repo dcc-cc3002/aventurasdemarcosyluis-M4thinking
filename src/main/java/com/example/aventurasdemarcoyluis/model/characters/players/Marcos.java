@@ -1,6 +1,5 @@
 package com.example.aventurasdemarcoyluis.model.characters.players;
 
-import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.*;
 
@@ -35,8 +34,8 @@ public class Marcos extends AbstractPlayer implements IGenericPlayer {
     }
 
     @Override
-    public void attackFromList(AttackType anAttack, int enemyIndex, List<ICharacter> attackableCharactersBy) {
-        attack((IEnemy) attackableCharactersBy.get(enemyIndex), anAttack);
+    public void attackedByBoo(Boo boo) {
+        print("You cant attack Marcos");
     }
 
     @Override
@@ -65,13 +64,14 @@ public class Marcos extends AbstractPlayer implements IGenericPlayer {
     }
 
 
-    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
-        List<ICharacter> attackableCharacters = new LinkedList<>();
-        for(ICharacter attackableCharacter: characters){
-            if(attackableCharacter.isAttackableBy(this)) {
-                attackableCharacters.add(attackableCharacter);
+    @Override
+    public List<IEnemy> getAttackableEnemies(List<IEnemy> listOfEnemies) {
+        List<IEnemy> attackableEnemies = new LinkedList<>();
+        for(IEnemy attackableEnemy: listOfEnemies){
+            if(attackableEnemy.isAttackableBy(this) && !this.isKo()) {
+                attackableEnemies.add(attackableEnemy);
             }
         }
-        return attackableCharacters;
+        return attackableEnemies;
     }
 }

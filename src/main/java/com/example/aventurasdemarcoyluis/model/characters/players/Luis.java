@@ -1,6 +1,5 @@
 package com.example.aventurasdemarcoyluis.model.characters.players;
 
-import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.*;
 
@@ -23,7 +22,7 @@ public class Luis extends AbstractPlayer implements IScaredPlayer {
     }
 
     @Override
-    public void attack(IGenericEnemy anEnemy, AttackType anAttack){
+    public void attack(IEnemy anEnemy, AttackType anAttack){
         if (getFp() >= anAttack.fpCost) {
             anEnemy.attackedByLuis(this, anAttack);
         }
@@ -42,11 +41,6 @@ public class Luis extends AbstractPlayer implements IScaredPlayer {
     @Override
     public void attackedByGoomba(Goomba goomba) {
         this.attackedByEnemy(goomba);
-    }
-
-    @Override
-    public void attackFromList(AttackType anAttack, int enemyIndex, List<ICharacter> attackableCharactersBy) {
-        attack((IGenericEnemy) attackableCharactersBy.get(enemyIndex), anAttack);
     }
 
     @Override
@@ -70,13 +64,13 @@ public class Luis extends AbstractPlayer implements IScaredPlayer {
     }
 
     @Override
-    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
-        List<ICharacter> attackableCharacters = new LinkedList<>();
-        for(ICharacter attackableCharacter: characters){
-            if(attackableCharacter.isAttackableBy(this)) {
-                attackableCharacters.add(attackableCharacter);
+    public List<IEnemy> getAttackableEnemies(List<IEnemy> listOfEnemies) {
+        List<IEnemy> attackableEnemies = new LinkedList<>();
+        for(IEnemy attackableEnemy: listOfEnemies){
+            if(attackableEnemy.isAttackableBy(this) && !this.isKo()) {
+                attackableEnemies.add(attackableEnemy);
             }
         }
-        return attackableCharacters;
+        return attackableEnemies;
     }
 }

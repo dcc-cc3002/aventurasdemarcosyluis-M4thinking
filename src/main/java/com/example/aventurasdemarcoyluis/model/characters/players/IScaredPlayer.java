@@ -2,8 +2,7 @@ package com.example.aventurasdemarcoyluis.model.characters.players;
 
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Boo;
-import com.example.aventurasdemarcoyluis.model.characters.enemies.IGenericEnemy;
-
+import com.example.aventurasdemarcoyluis.model.characters.enemies.IEnemy;
 /**
  * Every scared player should implement this interface, if so,
  * the player will only attack generic enemies. And may
@@ -12,7 +11,7 @@ import com.example.aventurasdemarcoyluis.model.characters.enemies.IGenericEnemy;
 public interface IScaredPlayer extends IPlayer{
 
 	/**
-	 * Attack an {@code IGenericEnemy} with an {@code AttackType}.
+	 * Attack only effective over {@code IGenericEnemy} with an {@code AttackType}.
 	 * <p>
 	 *     The attack will only be effective
 	 *     if the player has enough attack
@@ -23,7 +22,7 @@ public interface IScaredPlayer extends IPlayer{
 	 * @param anEnemy The generic enemy that will be attacked.
 	 * @param anAttack The attack that will be used.
 	 */
-	void attack(IGenericEnemy anEnemy, AttackType anAttack);
+	void attack(IEnemy anEnemy, AttackType anAttack);
 
 	/**
 	 * Method that warns the player

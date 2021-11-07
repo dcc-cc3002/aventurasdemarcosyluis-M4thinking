@@ -2,9 +2,7 @@ package com.example.aventurasdemarcoyluis.model.characters.players;
 
 import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
-import com.example.aventurasdemarcoyluis.model.characters.enemies.IEnemy;
-import com.example.aventurasdemarcoyluis.model.characters.enemies.Spiny;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.*;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.ItemBag;
 
@@ -27,6 +25,12 @@ public interface IPlayer extends ICharacter{
      * @param fp current fight points.
      */
     void setFp(int fp);
+
+    /**
+     * Increase or decrease n units the Fp
+     * @param numberOfFp The units to increase (+) or decrease (-).
+     */
+    void increaseOrDecreaseFp(int numberOfFp);
 
     /**
      * Gets the maximum player's fight points.
@@ -111,7 +115,7 @@ public interface IPlayer extends ICharacter{
     /**
      * Method that warns the player
      * that he is being attacked by
-     * the enemy Boo, to act on it.
+     * the enemy Spiny, to act on it.
      * @param spiny The attacking enemy Spiny.
      */
     void attackedBySpiny(Spiny spiny);
@@ -119,10 +123,51 @@ public interface IPlayer extends ICharacter{
     /**
      * Method that warns the player
      * that he is being attacked by
-     * the enemy Boo, to act on it.
+     * the enemy Goomba, to act on it.
      * @param goomba The attacking enemy Goomba.
      */
     void attackedByGoomba(Goomba goomba);
 
-	void attackFromList(AttackType anAttack, int enemyIndex, List<ICharacter> attackableCharactersBy);
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * the enemy Boo, to act on it.
+     * @param boo The attacking enemy Goomba.
+     */
+    void attackedByBoo(Boo boo);
+
+    /**
+     * Method that warns the player
+     * that he is being attacked by
+     * the enemy Boo, to act on it.
+     * @param anEnemy The attacked Enemy.
+     * @param anAttack The {@code AttackType} you want to perform.
+     */
+    void attack(IEnemy anEnemy, AttackType anAttack);
+
+    /**
+     * Returns a sublist of enemies who can attack, given a list of more enemies
+     * @param listOfEnemies enemy list to filter from
+     * @return Sublist of possible enemies that the player can attack
+     */
+    List<IEnemy> getAttackableEnemies(List<IEnemy> listOfEnemies);
+
+    /** Dynamic stats HP and FP are restore to maxHp and maxFp */
+    void restoreDynamicStats();
+
+    /**
+     * Delivers confirmation of whether this player
+     * is attackable by a {@code IGenericEnemy}.
+     * @param anEnemy The enemy that is verified
+     * @return True if the enemy can attack it, false if not.
+     */
+    boolean isAttackableBy(IGenericEnemy anEnemy);
+
+    /**
+     * Delivers confirmation of whether this player
+     * is attackable by a {@code IEspectralEnemy}.
+     * @param anEnemy The enemy that is verified
+     * @return {@code true} if the enemy can attack it, {@code false} if not.
+     */
+    boolean isAttackableBy(IEspectralEnemy anEnemy);
 }

@@ -1,6 +1,5 @@
 package com.example.aventurasdemarcoyluis.model.characters.enemies;
 
-import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.players.*;
 
@@ -29,7 +28,7 @@ public class Goomba extends AbstractEnemy implements IGenericEnemy {
 
     @Override
     public void insult() {
-        print("frrr, frrr, it's Gooomba!");
+        print("frrr, frrr, it's Goomba!");
     }
 
     @Override
@@ -58,13 +57,13 @@ public class Goomba extends AbstractEnemy implements IGenericEnemy {
     }
 
     @Override
-    public List<ICharacter> getAttackableCharacters(List<ICharacter> characters) {
-        List<ICharacter> attackableCharacters = new LinkedList<>();
-        for(ICharacter attackableCharacter: characters){
-            if(attackableCharacter.isAttackableBy(this)) {
-                attackableCharacters.add(attackableCharacter);
+    public List<IPlayer> getAttackablePlayers(List<IPlayer> listOfPlayers) {
+        List<IPlayer> attackablePlayers = new LinkedList<>();
+        for(IPlayer attackablePlayer: listOfPlayers){
+            if(attackablePlayer.isAttackableBy(this) && !this.isKo()) {
+                attackablePlayers.add(attackablePlayer);
             }
         }
-        return attackableCharacters;
+        return attackablePlayers;
     }
 }
