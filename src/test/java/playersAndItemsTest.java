@@ -1,13 +1,13 @@
-import com.example.aventurasdemarcoyluis.characters.enemies.IEnemy;
-import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
-import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.players.Luis;
-import com.example.aventurasdemarcoyluis.characters.players.Marcos;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.IEnemy;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.model.characters.players.IPlayer;
+import com.example.aventurasdemarcoyluis.model.characters.players.Luis;
+import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
 
-import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
-import com.example.aventurasdemarcoyluis.itemsconfig.items.Star;
-import com.example.aventurasdemarcoyluis.itemsconfig.items.RedMushroom;
-import com.example.aventurasdemarcoyluis.itemsconfig.items.HoneySyrup;
+import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
+import com.example.aventurasdemarcoyluis.model.itemsconfig.ItemBag;
+import com.example.aventurasdemarcoyluis.model.itemsconfig.items.RedMushroom;
+import com.example.aventurasdemarcoyluis.model.itemsconfig.items.HoneySyrup;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,6 @@ public class playersAndItemsTest {
 
     private IItem testRedMushroom;
     private IItem testHoneySyrup;
-    private IItem testStar;
 
     /**
      * The message tests were based on: <a href="https://morioh.com/p/c14998c5c076 ">Unit Testing of System.out.println() with JUnit - Morioh</a>
@@ -45,7 +44,10 @@ public class playersAndItemsTest {
         //Items
         testRedMushroom = new RedMushroom();
         testHoneySyrup = new HoneySyrup();
-        testStar = new Star();
+
+        //Shared Chest from static method
+        ItemBag chest = ItemBag.instance();
+        chest.initializeEmpty(); //Global variable
     }
 
     @AfterEach
@@ -196,44 +198,8 @@ public class playersAndItemsTest {
 
     @Test
     public void itemConstructor(){
-        assertNotEquals(testStar,testHoneySyrup);
-        assertNotEquals(testStar.hashCode(),testHoneySyrup.hashCode());
-
         assertNotEquals(testHoneySyrup,testRedMushroom);
         assertNotEquals(testHoneySyrup.hashCode(),testRedMushroom.hashCode());
-
-        assertNotEquals(testRedMushroom,testStar);
-        assertNotEquals(testRedMushroom.hashCode(),testStar.hashCode());
-
-    }
-
-    @Test
-    public void useStarItemTest() {
-        //Causes the player who consumes it, enter the invincible state.
-        assertEquals(7, testMarcos.getHp());
-
-        testMarcos.addItem(testStar);
-        testMarcos.addItem(testStar);//A player can have more than one instance of this item.
-
-        assertFalse(testMarcos.getInvincible());
-
-        testMarcos.selectItem(testStar);//Select once.
-
-        assertTrue(testMarcos.getInvincible());
-
-        testMarcos.setInvincible(false);
-
-        assertFalse(testMarcos.getInvincible());
-
-        testMarcos.selectItem(testStar); //Select twice.
-
-        assertTrue(testMarcos.getInvincible());
-
-        testMarcos.setInvincible(false);
-
-        testMarcos.selectItem(testStar); //Select without having the item.
-
-        assertFalse(testMarcos.getInvincible());
     }
 
     @Test
@@ -297,13 +263,13 @@ public class playersAndItemsTest {
 
     @Test
     public void toStringLuisTest(){
-        testLuis.addItem(testStar);
-        testLuis.addItem(testStar);
+        testLuis.addItem(testRedMushroom);
+        testLuis.addItem(testHoneySyrup);
         testLuis.setHp(-5);
 
         System.out.println(testLuis.toString());
-        assertEquals(   "Luis{atk=12, def=10, hp=0, maxHp=8, lvl=4, fp=6, maxFp=6, invincible=false, " +
-                        "armament={Star=2, Red Mushroom=0, Honey Syrup=0}}",
+        assertEquals(   "Luis{atk=12, def=10, hp=0, maxHp=8, lvl=4, fp=6, maxFp=6, " +
+                        "armament={Red Mushroom=1, Honey Syrup=1}}",
                                 outputStreamCaptor.toString().trim());
     }
 
@@ -315,8 +281,8 @@ public class playersAndItemsTest {
         testMarcos.setFp(-6);
 
         System.out.println(testMarcos.toString());
-        assertEquals(   "Marcos{atk=11, def=9, hp=7, maxHp=7, lvl=3, fp=0, maxFp=5, invincible=false, " +
-                        "armament={Star=0, Red Mushroom=1, Honey Syrup=2}}",
+        assertEquals(   "Marcos{atk=11, def=9, hp=7, maxHp=7, lvl=3, fp=0, maxFp=5, " +
+                        "armament={Red Mushroom=1, Honey Syrup=2}}",
                                 outputStreamCaptor.toString().trim());
     }
 }

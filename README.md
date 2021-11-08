@@ -122,13 +122,13 @@ abstractas, con el fin de reutilizar funcionalidad común y dar orden y jerarqu�
 una clase).
    1. Se imprimen sus "frases típicas" para revisar si ya existen.
    2. Se verifica que no son iguales entre ellos, ni tampoco a un enemigo. 
-3. Se prueban sus getters y setters.
+2. Se prueban sus getters y setters.
    - ***Estos serán usados por muchos tests para hacer pruebas por lo que se necesita que sean públicos 😢.***
    - Las variables de forma interna serán `protected` ó `private`.
    1. Se verifica que la noción de estar K.O. se cumple cuando el personaje está en 0 HP.
    2. Se verifican las restricciones de vida HP y puntos de ataque FP (como la vida se implementa para todos los personajes,
    en principio bastaría probar **1.** y **2.** solo con un jugador arbitrario). 
-4. En otro test para enemigos se crean Goomba, Spiny y Boo (a cada uno le corresponderá una clase).
+3. En otro test para enemigos se crean Goomba, Spiny y Boo (a cada uno le corresponderá una clase).
    1. Se imprimen sus "insultos" para revisar si ya existen.
    2. Se prueban sus getters y setters, cada enemigo tendrá su "tipo" que le identifica y guarda su información.
 #### Paso 2: Hacer los tests para que jugadores puedan usar items.
@@ -188,7 +188,7 @@ ciclo `while()` que rescatará la proporción de ataques conectados y fallados, 
    3. En la tercera estará el getter y setter para el **tipo de enemigo** (tipos creados en una clase enum), su insulto y el invariante (en este caso solo
    de HP).
 2. Se crea la interfaz para los **Items**, que permitirá fungir el item en cuestión y obtener el **tipo de item** (tipos creados en
-una clase enum, pero además tendran sus clases propias).
+una clase enum, pero además tendrán sus clases propias).
 3. Interfaces para Double Dispatch que deberán implementar las clases del jugador y el enemigo.
    1. Se crea el interface **Ataque del Jugador** y **Ataque del Enemigo**.
    2. Cada una se encargará de un método de ataque al contrincante y métodos que avisan al personaje atacado
@@ -223,6 +223,8 @@ Hacer este breve resumen (si, breve...).
 
 ### Paso 7: Diagrama UML.
 ![alt text](UML_Diagram_T1_ModelComplete.png)
+
+`Figura 1: Diagrama UML del juego para la Tarea 1.`
 
 ## Consideraciones Adicionales
 
@@ -260,8 +262,234 @@ actualizaciones en el corto plazo.
 
 ![alt text](ClassAttackModel.png)
 
+`Figura 2: Resumen de clases para la entrega parcial 1 de la Tarea 2.`
 
 Respecto al resto de modificaciones, se borraron los test correspondientes a enemigos y jugadores que no podían atacar al
 contrincante, ahora simplemente saldrá un error en pantalla si se intenta ejecutar un ataque no válido. Igualmente toda la 
 funcionalidad sigue testeada, ya que solo cambió el diseño y no el propósito. Además de esto, se reconectaron de mejor forma
 las interfaces para que el diagrama de clases tenga una intención más clara.
+
+
+## Tarea 2:
+
+Esta tarea consiste en implementar la base del controlador del juego. El controlador
+servirá como intermediario entre los objetos del modelo y la interfaz gráfica de la aplicación.
+Este debe encargarse de mantener todos los parámetros necesarios para implementar las
+reglas y el flujo del juego. El controlador pueden ser una o más clases, pero es importante que la
+interfaz gráfica no interactúe directamente con los objetos del modelo y viceversa.
+
+El objetivo de la creación del controlador será enviar mensajes a los objetos del modelo indicándoles lo que deben
+de hacer y los objetos del modelo deben de ser capaces de comunicar al controlador sobre cualquier
+cambio que sea relevante para el flujo del juego y para el usuario.
+
+Para llevar a cabo su implementación será necesario introducir algunos conceptos que se presentan a continuación:
+
+###  Baúl
+
+Los personajes principales tendrán un baúl compartido en donde almacenaran los Items que se dan en el
+juego, en el caso de la estrella, esta se sacó del juego para quitar algo de complejidad al testeo posterior 
+del controlador. Cuando un personaje principal quiera utilizar un elemento lo debe retirar
+del baúl y este dejará de existir en el compartimiento.
+
+### Batalla
+
+La parte principal de este juego serán las Batallas, que corresponde a un encuentro entre los personajes
+principales y los enemigos. Modelaremos una batalla a través de un sistema de turnos, donde ignoraremos
+la presencia de velocidad.
+
+### Avance de nivel
+
+Cuando los jugadores ganan una batalla aumentan su nivel en 1 y sus estadísticas aumentan en 15 % con
+respecto al valor actual (en el caso de HP Y FP, aumentan en el 15 % de su máximo). Por ejemplo, si ATK
+era 20, entonces esta estadística aumenta en 3. De la misma forma, si el HP era 5, pero el HP máximo era
+20, el HP máximo aumenta en 3 también.
+
+### Turnos.
+
+El orden en que los personajes tomarán turnos será el siguiente: Marcos, Luis, y el resto de enemigos (en un orden
+predefinido y fijo para el resto de la batalla). Luego de que algún personaje termine su turno, avanzará el turno
+del siguiente personaje, y así hasta que acabe la batalla. Si algún personaje queda K.O. durante el desarrollo de
+la batalla queda inhabilitado para usar su turno, se quita de la lista y continua el personaje siguiente.
+
+#### Turno para los Personajes Principales
+
+**Turno de Ataque:** En un turno de ataque se realizan las siguientes acciones:
+- Seleccionar algún tipo de ataque (Salto o Martillo).
+- Seleccionar un enemigo para ejecutar el ataque, gastando FP según sea el tipo de ataque.
+- Fin del turno.
+
+***Consideración 8: Si no se cumple con las restricciones de FP para ejecutar el ataque o el enemigo no es válido, el
+turno no termina. Se mantiene el turno hasta que se haga un movimiento válido.***
+
+**Turno para Ocupar un Item:** En el turno para utilizar un Item los pasos son los siguientes:
+- Escoger un Item de los disponibles en el baúl de objetos.
+- Seleccionar el personaje principal sobre el cual tendrá efecto el Item.
+- Fin del turno.
+- 
+***Consideración 9: El item podrá ser seleccionado por el jugador del turno actual y solo podrá usarse sobre los jugadores
+que sigan en pie, es decir, que no estén K.O., si no es un item válido o no se cumple lo anterior, el turno no terminará 
+de la misma forma que para el turno de ataque.***
+
+**Turno para Pasar:** Al escoger la opción de pasar simplemente se avanza al siguiente turno.
+
+***Consideración 10: Los jugadores en total pueden realizar 5 turnos para pasar, si se realizan más, el juego 
+acaba en la derrota de los jugadores.***
+
+#### Turno para los Enemigos
+
+**Turno para atacar:** Dado que los enemigos no poseen FP, ni tampoco poseen tipos de ataque o Items, la única opción que tiene
+es atacar a algún personaje principal, en donde se seguirán los siguientes pasos:
+- Escoger aleatoriamente algún personaje principal que no esté K.O. en la batalla siguiendo las restricciones de ataque para enemigos.
+- Realizar ataque correspondiente.
+- Fin del turno.
+
+***Consideración 11: Si el enemigo en turno no puede atacar a ningún personaje, simplemente pasa su turno.***
+
+### Fin de la batalla
+Una batalla finaliza si alguno de los siguientes casos ocurre:
+1. Cuando todos los enemigos queden K.O., o bien,
+2. Cuando todos los personajes principales queden K.O. o pasan más de 5 veces en una batalla.
+
+En el primer caso los personajes principales ganan y acá se presentan dos casos:
+- Si es su 5ta victoria, ganan el juego y termina la partida.
+- Si aún no completan 5 victorias, aumenta su nivel en 1 aumentando con ello sus estadísticas.
+
+### Partida
+La partida se refiere desde el inicio del juego hasta su final. A continuación se describen las etapas de la
+partida:
+
+- **Etapa Inicial:** Se regalan 3 Red Mushroom y 3 Honey Syrup que se almacenan en el baúl de los personajes
+principales.
+- **Inicio Batalla:** Se reinicia la vida de los jugadores y sus FP y se organizan los turnos como se describe
+en la sección de **Turnos** para dar inicio a la batalla.
+- **Fin Batalla:** Si los personajes principales pierden la partida se termina el juego. Si Marcos y Luis ganan
+la batalla, se agrega 1 Red Mushroom y 1 Honey Syrup al baúl, se actualizan sus estadísticas (HP, ATK,
+etc.) de acorde con lo descrito en la sección de **Avance de nivel** y se prepara la siguiente batalla como se describió
+anteriormente, a menos que sea su 5.ª victoria, en ese caso ganan el juego.
+
+El avance de los personajes principales a medida que ganan batallas implicará otros cambios que se
+especifican en la siguiente tabla: 
+
+|Nivel|                Baúl                | Enemigos en batalla |     HP    | ATK  |     FP    | DEF  |
+| :---|:----------------------------------:|:-------------------:|:---------:|:----:|:---------:|-----:|
+|  1  |+ 3 Red Mushroom<br/> +3 Honey Syrup|     3 aleatorios    |    +0     | +0   |    +0     |  +0  |
+|  2  |+ 1 Red Mushroom<br/> +1 Honey Syrup|     3 aleatorios    |+15% HP max| +15% |+15% FP max| +15% |
+|  3  |+ 1 Red Mushroom<br/> +1 Honey Syrup|     5 aleatorios    |+15% HP max| +15% |+15% FP max| +15% |
+|  4  |+ 1 Red Mushroom<br/> +1 Honey Syrup|     5 aleatorios    |+15% HP max| +15% |+15% FP max| +15% |
+|  5  |+ 1 Red Mushroom<br/> +1 Honey Syrup|     6 aleatorios    |+15% HP max| +15% |+15% FP max| +15% |
+
+`Cuadro 2: Tabla de progreso para jugadores por nivel y enemigos para cada batalla.`
+
+## Requisitos aburridos de la Tarea 2
+Lo que se pide para la Tarea 2 es:
+```
+- Implementar los ataques entre personajes y enemigos siguiendo las reglas previas y buenas prácticas
+de diseño.
+- Cuando un personaje principal aumenta de nivel, actualizar sus estadísticas como se comenta en la
+sección de "Avance de nivel".
+- Implementar el baúl de Items.
+- Que se pueda añadir elementos al baúl
+Crear el controlador del juego, con el cual:
+• Crear a los personajes principales.
+• Crear a los enemigos.
+• Crear a los Items.
+• Crear el baúl de los personajes principales.
+• Implementar los turnos.
+• Que un jugador pueda utilizar un elemento al baúl.
+• Obtener los elementos del baúl.
+• Obtener todos los personajes del turno.
+• Quitar a un personaje del “turno” cuando está K.O.
+• Saber cuando los personajes principales ganan o pierden.
+• Obtener el personaje que posee el turno actual.
+• Obtener el personaje del siguiente turno.
+• Terminar el turno del jugador actual.
+• Ejecutar una batalla.
+```
+
+#### Paso 1: Modificación a la clase ItemBag para implementar el baúl.
+
+Para la tarea 1 se tenía una especie de armamento para cada personaje implementado mediante la clase ItemBag, 
+ahora se pide que el armamento sea un baúl compartido, para lo cual se dispone del _Singleton Pattern_, el cual
+permitirá a todos los jugadores y al controlador, poseer instancias del mismo objeto baúl, que será único para todo el juego y
+que ya posee todos los métodos que interesan a la hora de manipular el baúl en el controlador.
+
+#### Paso 2: Creación de métodos de para el aumento de nivel.
+
+Se crea el método ```levelUp()``` en la clase AbstractPlayer bajo las condiciones anteriormente mencionadas para el avance de nivel.
+
+#### Paso 3: Factory Pattern para enemigos.
+
+Se implementa el Factory pattern como una forma de ordenar la creación posterior de enemigos aleatorios por parte del controlador.
+Esto no se realiza para los items o los jugadores, ya que los jugadores se crean solo al comienzo del juego y dado que el juego se llama
+"Las flipantes aventuras de Marco y Luis", no parece ser necesario de momento, crear demasiados jugadores. Por parte de los items, 
+son solamente dos luego de quitar el item _Star_, por lo que de momento no se implementa una fábrica para los items.
+
+#### Paso 4: Turnos de enemigos y jugadores.
+
+Esta es una de las partes más directas, ya que el modelo ya sabe comportarse a casi todas las situaciones descritas por los turnos.
+Ahora solo se debe llamar a cada método con una restricción que verifique que el movimiento sea válido antes de terminar el turno.
+
+#### Paso 5: Implementar lógica de turnos.
+
+Este es posiblemente el paso más abierto/creativo, ya que existen muchas formas de implementarlo. Viendo el contexto previo de clases,
+es posible dar cuenta que en la Tarea 1, se tenía una jerarquía muy restrictiva para los jugadores y enemigos en el ámbito del ataque, 
+dadas las interfaces que recibían los métodos de ataque, por lo que se intentó relajar al menos en las firmas de los métodos ```attack(...)```, 
+sin dejar en ningún momento de cumplir las restricciones del juego. Por lo que al implementar los turnos, se implementaron principalmente dos listas,
+una para jugadores en turno y otra para enemigos en turno, donde se almacenan los jugadores y enemigos que aún siguen en batalla.
+
+Para saber el dueño del turno actual y posterior, se trabajó con las listas como si fueran colas, por lo que al momento de finalizar el turno, 
+el jugador o enemigo se pone a la cola en su lista respectiva, antes verificando que el personaje no murió en el inter-tanto. Dada
+esta configuración, al elegir un personaje de cualquiera de las listas, no se presentan problemas de firmas con los métodos de las clases
+que implementan los ataques (evitando el temido CASTING). Para que esto funcione correctamente y no se abuse de la relajación de la firma,
+antes de ejecutar el ataque, se entrega una lista de los enemigos que el jugador puede atacar y para enemigos, una lista de 
+jugadores que puede atacar, así el personaje nunca podrá "pasarse de listo".
+
+Como última observación, para entregar estas listas de posibles contrincantes atacables, se implementó un método ```getAttackable{Enemies/Players}()``` 
+que se puede decir "complejo", ya que requería cada personaje de una lista de posibles "atacables" supiera el interface de ataque del 
+personaje que quiere atacarlos, lo cual no podía implementarse en la clase más genérica de personajes de forma común para todos, y que esta clase
+aplicara el "this" sobre la clase más particular. De hecho el método no funciona si se implementa directamente en la clase personajes,
+por lo que se repitió este método de forma idéntica en cada jugador y enemigo específico, ya que el "this", de cada método es distinto
+y el método cambia completamente su funcionalidad gracias a esto.
+
+#### Paso 6: Variables relevantes en el flujo del juego.
+
+Para saber si se está en la cola de jugadores o en la de enemigos, es posible guardar el estado, es decir, en todo momento saber si están jugando
+los jugadores o los enemigos, así también, resulta interesante saber si se está en batalla o si la partida esta en progreso, o los jugadores 
+ya ganaron o perdieron, estas son algunas de las variables importantes, pero para mayores sutilezas como ver getters y setters, es mejor entrar a mirar el código.
+
+#### Paso 7: Fases que determinan el flujo del juego.
+
+Se crea la ```initialPhase()``` en el controlador, donde se agregan los jugadores al juego mismo y se dan los primeros items,
+luego se crea la fase ```startBattlePhase()``` que permite restaurar la vida de los jugadores al empezar cada batalla y los agrega
+a su lista de turnos, además de agregar los enemigos aleatorios necesarios para cada batalla a la lista de enemigos en turno. Finalmente
+se hacen cambios en variables relevantes para el flujo del juego y se fija el primer turno.
+
+Una vez hecho esto, ya se tiene conocimiento del dueño del turno y este puede ejecutar su turno sin presencia de velocidad, es decir, 
+no tiene un tiempo para tomar su decisión. Una vez que se cumplen las condiciones para terminar una batalla se ejecuta el método 
+```endOfBattle()``` que permite tomar la decisión de seguir con el juego o acabar con una victoria o derrota. Si el juego continúa, una
+nueva fase ```startNewBattle()``` es llamada de forma automática limpiando las listas de turnos, agregando los items correspondientes, 
+subiendo el nivel de los jugadores y llamando nuevamente a ```startBattlePhase()```.
+
+#### Paso 7: Documentar y Testear.
+
+Como el testeo se vuelve complejo ante la aleatoriedad y el uso de semillas, sumado a la dificultad de revisar listas de posibles
+enemigos y jugadores atacables, resulta más sencillo en este caso testear una vez implementado el controlador, ya que el flujo se hace
+mucho más fácil de verificar si se logra obtener las variables que determinan el flujo del juego como una guía para testear la batalla.
+
+Se intenta testear todas las posibles situaciones incluyendo posibles decisiones inválidas o casos bordes, buscando cubrir todos los 
+métodos implementados, que fueron también debidamente documentados, incluso estando privados para una mejor comprensión tanto al programador, 
+como al cliente.
+
+#### Paso 8: Diagramas UML terminada la Tarea 2.
+
+A continuación se muestra el diagrama de clases del modelo completo y un resumen de la clases para tener una idea más general
+de la programación del juego hasta el momento.
+
+![Diagrama UML completo](UML_Diagram_T2_ModelComplete.png)
+
+`Figura 3: Diagrama UML completo para la tarea 2.`
+
+![Diagrama de Clases Resumido](UML_Diagram_T2_ClassSummary.png)
+
+`Figura 4: Diagrama de Clases que resume las interacciones de las clases del juego.`
+

@@ -1,14 +1,15 @@
-import com.example.aventurasdemarcoyluis.characters.attackconfig.AttackType;
-import com.example.aventurasdemarcoyluis.characters.enemies.Boo;
-import com.example.aventurasdemarcoyluis.characters.enemies.Goomba;
-import com.example.aventurasdemarcoyluis.characters.enemies.Spiny;
-import com.example.aventurasdemarcoyluis.characters.players.IPlayer;
-import com.example.aventurasdemarcoyluis.characters.players.Luis;
-import com.example.aventurasdemarcoyluis.characters.players.Marcos;
-import com.example.aventurasdemarcoyluis.itemsconfig.IItem;
-import com.example.aventurasdemarcoyluis.itemsconfig.items.Star;
+import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.Boo;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
+import com.example.aventurasdemarcoyluis.model.characters.enemies.Spiny;
+import com.example.aventurasdemarcoyluis.model.characters.players.Luis;
+import com.example.aventurasdemarcoyluis.model.characters.players.Marcos;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,21 +22,31 @@ public class attackTest {
 	private Spiny testSpiny;
 	private Boo testBoo;
 
-	private IItem testStar;
+	/**
+	 * The message tests were based on: <a href="https://morioh.com/p/c14998c5c076 ">Unit Testing of System.out.println() with JUnit - Morioh</a>
+	 */
+	private final PrintStream standardOut = System.out;
+	private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
 	@BeforeEach
 	public void setUp() {
+		//Where the values will now be printed.
+		System.setOut(new PrintStream(outputStreamCaptor));
+
 		//Players
 		testMarcos = new Marcos(11, 9, 11, 5, 3);
 		testLuis = new Luis(12, 10, 13, 6, 4);
 
-		//Enemy
+		//Enemies
 		testGoomba = new Goomba(10, 4, 15, 8);
 		testSpiny = new Spiny(12, 4, 18, 8);
 		testBoo = new Boo(5, 8, 17, 8);
+	}
 
-		//Item (Special case for attack)
-		testStar = new Star();
+	@AfterEach
+	public void tearDown() {
+		//Restoring standard output stream.
+		System.setOut(standardOut);
 	}
 
 	@Test
@@ -548,27 +559,8 @@ public class attackTest {
 
 	@Test
 	public void goombaAttackMarcosLuisTest() {
-		testMarcos.addItem(testStar);
-		testLuis.addItem(testStar);
-
-		testMarcos.selectItem(testStar);
-		testLuis.selectItem(testStar);
-
-		assertTrue(testMarcos.getInvincible());
-		assertTrue(testLuis.getInvincible());
-
 		assertEquals(11, testMarcos.getHp());
 		assertEquals(13, testLuis.getHp());
-
-		testGoomba.attack(testMarcos);
-		testGoomba.attack(testLuis);
-
-		//Cannot attack if the player is invincible
-		assertEquals(11, testMarcos.getHp());
-		assertEquals(13, testLuis.getHp());
-
-		testMarcos.setInvincible(false);
-		testLuis.setInvincible(false);
 
 		testGoomba.attack(testMarcos);//(Rounded int) ( K=0.75 * ATK=12 * (LVL=8 / DEF=9) )  == 7.
 		testGoomba.attack(testLuis);//(Rounded int) ( K=0.75 * ATK=12 * (LVL=8 / DEF=10) )  == 6.
@@ -591,27 +583,8 @@ public class attackTest {
 
 	@Test
 	public void spinyAttackMarcosLuisTest() {
-		testMarcos.addItem(testStar);
-		testLuis.addItem(testStar);
-
-		testMarcos.selectItem(testStar);
-		testLuis.selectItem(testStar);
-
-		assertTrue(testMarcos.getInvincible());
-		assertTrue(testLuis.getInvincible());
-
 		assertEquals(11, testMarcos.getHp());
 		assertEquals(13, testLuis.getHp());
-
-		//Cannot attack if the player is invincible
-		testSpiny.attack(testMarcos);
-		testSpiny.attack(testLuis);
-
-		assertEquals(11, testMarcos.getHp());
-		assertEquals(13, testLuis.getHp());
-
-		testMarcos.setInvincible(false);
-		testLuis.setInvincible(false);
 
 		testSpiny.attack(testMarcos);//(Rounded int) ( K=0.75 * ATK=11 * (LVL=8 / DEF=9) )  == 8.
 		testSpiny.attack(testLuis);//(Rounded int) ( K=0.75 * ATK=11 * (LVL=8 / DEF=10) )  == 7.
@@ -633,19 +606,7 @@ public class attackTest {
 
 	@Test
 	public void booAttackLuisTest() {
-		testLuis.addItem(testStar);
-		testLuis.selectItem(testStar);
-
-		assertTrue(testLuis.getInvincible());
-
 		assertEquals(13, testLuis.getHp());
-
-		testBoo.attack(testLuis);
-
-		//Cannot attack if the player is invincible
-		assertEquals(13, testLuis.getHp());
-
-		testLuis.setInvincible(false);
 
 		testBoo.attack(testLuis);//(Rounded int) ( K=0.75 * ATK=5 * (LVL=8 / DEF=10) )  == 3.
 
@@ -659,6 +620,31 @@ public class attackTest {
 		testBoo.attack(testLuis);
 
 		assertEquals(10, testLuis.getHp());
+	}
+
+	@Test
+	public void luisAttackBooTest(){
+		assertEquals(17, testBoo.getHp());
+
+		testLuis.attack(testBoo, AttackType.SALTO);
+
+		testBoo.setSeed(4993); //Task 2 has seed's (such a better way to test)
+
+		assertEquals(17, testBoo.getHp());
+
+		testLuis.attack(testBoo, AttackType.MARTILLO);
+
+		assertEquals(17, testBoo.getHp());
+
+	}
+
+	@Test
+	public void booAttackMarcosTest(){
+		assertEquals(11, testMarcos.getHp());
+
+		testBoo.attack(testMarcos);
+
+		assertEquals(11, testMarcos.getHp());
 	}
 }
 
