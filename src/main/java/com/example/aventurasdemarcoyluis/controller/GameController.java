@@ -289,7 +289,7 @@ public class GameController {
 	 * @param enemyIndex Index starting from one, from the list {@code attackableEnemies}.
 	 */
 	public void attackTurn(@NotNull AttackType anAttack, int enemyIndex) {
-		if (getPlayerOwner().getFp() >= anAttack.fpCost && getAttackableEnemies().size()>=enemyIndex){
+		if (getPlayerOwner().getFp() >= anAttack.fpCost && getAttackableEnemies().size()>=enemyIndex && turnForPlayers){
 			getPlayerOwner().attack(getAttackableEnemies().get(enemyIndex-1), anAttack);
 			finishTurn();
 		}
@@ -317,7 +317,7 @@ public class GameController {
 	 */
 	public void useItemTurn(int playerIndex, IItem anItem) {
 		IPlayer playerWhoWillUseTheItem = players.get(playerIndex - 1);
-		if (!playerWhoWillUseTheItem.isKo() && chest.itemExists(anItem)){
+		if (!playerWhoWillUseTheItem.isKo() && chest.itemExists(anItem) && turnForPlayers){
 			playerWhoWillUseTheItem.selectItem(anItem);
 			finishTurn();
 		}
@@ -326,8 +326,11 @@ public class GameController {
 
 	/** Advance to the next turn by adding one to the count of times passed. */
 	public void passTurn() {
-		passTurnTimes++;
-		finishTurn();
+		if(turnForPlayers){
+			passTurnTimes++;
+			finishTurn();
+		}
+		//AssertionError here in the future
 	}
 
 	/* *************************************************************************

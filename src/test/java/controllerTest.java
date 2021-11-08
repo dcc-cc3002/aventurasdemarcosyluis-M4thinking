@@ -631,7 +631,7 @@ public class controllerTest {
 
 	@Test
 	public void phasesAndLoseTest(){ // Shortest
-		c.initialPhase();//Add players of the game and first items;
+		c.initialPhase();//Add players of the game and first items
 		c.setSeed(10101);
 		c.startBattlePhase();  //Add players and random enemies to the turn
 
@@ -756,5 +756,57 @@ public class controllerTest {
 		assertEquals(1, c.getPassTurnTimes()); //Not reset because the game ends
 		assertEquals("LOSE", c.inProgressWinOrLose());//The game is still in progress
 		assertEquals("{Red Mushroom=3, Honey Syrup=2}", c.getItems());//Not add new items because the game ends
+	}
+
+	@Test
+	public void passAndLoseTest(){
+		c.initialPhase();//Add players of the game and first items
+		c.setSeed(10101);
+		c.startBattlePhase();  //Add players and random enemies to the turn
+
+		/* *************************************************************************
+		 * Battle 1.
+		 **************************************************************************/
+
+		assertEquals(new ArrayList<>(Arrays.asList(marcos, luis, boo, goomba, goomba2)), c.getCharactersOfTheTurn());
+
+		c.passTurn();
+		c.passTurn();
+
+		c.attackTurn();
+		c.attackTurn();
+		c.attackTurn();
+
+		c.passTurn();
+		c.passTurn();
+
+		c.attackTurn();
+		c.attackTurn();
+		c.attackTurn();
+
+		c.passTurn();//Marcos is the only one alive
+
+		c.attackTurn();
+		c.attackTurn();
+		c.attackTurn();
+
+		marcos.setHp(10);
+
+		/* *************************************************************************
+		 * Game over.
+		 **************************************************************************/
+
+		assertEquals(0, c.checkWins());//Before lose the battle
+		assertEquals(5, c.getPassTurnTimes()); // 5 passed times
+		assertEquals("IN PROGRESS", c.inProgressWinOrLose());//The game is still in progress
+		assertEquals("{Red Mushroom=3, Honey Syrup=3}", c.getItems());
+		assertEquals(marcos, c.getOwner());
+
+		c.passTurn();
+
+		assertEquals(0, c.checkWins());//After lose the battle
+		assertEquals(6, c.getPassTurnTimes()); //6 passed times -> players lose
+		assertEquals("LOSE", c.inProgressWinOrLose());//The game is still in progress
+		assertEquals("{Red Mushroom=3, Honey Syrup=3}", c.getItems());//Not add new items because the game ends
 	}
 }
