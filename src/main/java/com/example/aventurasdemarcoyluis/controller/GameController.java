@@ -1,5 +1,7 @@
 package com.example.aventurasdemarcoyluis.controller;
 
+import com.example.aventurasdemarcoyluis.controller.phases.Phase;
+import com.example.aventurasdemarcoyluis.controller.phases.StartPhase;
 import com.example.aventurasdemarcoyluis.model.characters.ICharacter;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 import com.example.aventurasdemarcoyluis.model.characters.enemies.*;
@@ -55,6 +57,8 @@ public class GameController {
 
 	private boolean inBattle;
 	private boolean turnForPlayers;
+
+	private Phase phase;
 
 	/**
 	 * Constructor of the game controller,
@@ -116,6 +120,14 @@ public class GameController {
 		numOfWins = 0;
 		inProgressWinOrLose = 0;
 		inBattle = false;
+		this.setPhase(new StartPhase());
+	}
+	/* *************************************************************************
+	 * Phases implementation for controller.
+	 **************************************************************************/
+	public void setPhase(Phase aPhase){
+		phase = aPhase;
+		phase.setController(this);
 	}
 
 	/* *************************************************************************

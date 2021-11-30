@@ -22,9 +22,13 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+java {
+    modularity.inferModulePath.set(true)
+}
+
 application {
     mainModule = 'com.example.aventurasdemarcoyluis'
-    mainClass = 'com.example.aventurasdemarcoyluis.HelloApplication'
+    mainClass = "$moduleName/com.example.aventurasdemarcoyluis.view.GameGUI"
 }
 
 javafx {
