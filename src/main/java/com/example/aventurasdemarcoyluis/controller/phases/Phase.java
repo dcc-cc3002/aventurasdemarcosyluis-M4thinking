@@ -115,9 +115,7 @@ public class Phase {
 		error("PassTurn");
 	}
 
-	/**
-	 * Try to transition to the end game phase.
-	 */
+	/** Try to transition to the end game phase */
 	public void toEndGamePhase() {
 		changePhase(new EndGamePhase());
 	}
