@@ -493,3 +493,62 @@ de la programación del juego hasta el momento.
 
 `Figura 4: Diagrama de Clases que resume las interacciones de las clases del juego.`
 
+## Tarea 3:
+
+Para dar término a la creación de nuestro juego, esta última tarea consiste en implementar el *flujo del juego*.
+Basándonos principalmente en los requisitos de las secciones de batalla, partida y fin de juego. De aquí se definirán 
+todas las fases y las transiciones entre ellas (considerando las condiciones que deben cumplirse) para pasar de una a otra.
+Para el caso especial de interacción del usuario se crearon fases adicionales que representen una *fase de espera*.
+
+Así creó un diagrama de flujo tipo, para llevar a cabo las fases del juego mediante el State Pattern.
+
+![Diagrama de flujo](Flux_Diagram.png)
+
+`Figura 5: Diagrama de flujo tentativo, "Enemies Phase" es una fase virtual de paso instantáneo.`
+
+
+Una vez hecho este diagrama, fue bastante sencillo realizar las fases, realizando por medio de un observador la acción
+automática por parte de los enemigos de atacar. Al recibir una notificación de comienzo de la fase de enemigos.
+
+Una vez hecho esto, se incorporó al test del controlador el uso de las fases respectivas para probar su correcto funcionamiento.
+
+Luego de esto se procedió a crear una interfaz gráfica para la aplicación con menú de inicio de juego básico y un entorno
+interactivo con las características mínimas para funcionar más un formato lo suficientemente atractivo para querer jugar.
+
+### Las Flipantes Aventuras de Marco y Luis (Versión final)
+
+![Menú principal](Menu.png)
+`Figura 6: Interfaz del menú de inicio de la aplicación.`
+
+![Interfaz del juego](Battle_Interface.png)
+`Figura 7: Interfaz de batalla del juego.`
+
+![Interfaz de derrota](Lose_Interface.png)
+`Figura 8: Interfaz de derrota del juego.`
+
+![Interfaz de victoria](Win_Interface.png)
+`Figura 9: Interfaz de victoria del juego.`
+
+### Resumen de las reglas del juego:
+
+- Al iniciar la aplicación, para empezar el juego, se debe dar clic en **Press Start**, botón visible en la figura 6.
+- A continuación se abrirá la interfaz de batalla de la figura 7:
+  - En pantalla se muestran los jugadores y sus estadísticas.
+  - Los enemigos de la batalla actual.
+  - Una instrucción en la parte inferior para guiar el flujo del juego.
+  - Estadísticas del juego en la esquina superior derecha.
+  - Tres botones que permiten realizar un turno válido por parte de los jugadores.
+- En esta ventana el jugador puede, pasar con el botón **RUN**, Atacar con el botón **SOLO** o usar item con el botón **ITEM**.
+- Al hacer uso de **RUN**, el jugador cede el turno y se cuenta 1 turno pasado a la cuenta, al pasar los 5 turnos cedidos los jugadores pierden.
+- Al hacer uso de **SOLO**, el jugador puede seleccionar **SALTO** o **MARTILLO**, con las teclas **1** y **2** respectivamente. Luego selecciona al enemigo y se ejecutará el ataque.
+- Al hacer uso de **ITEM**, el jugador puede seleccionar **RED MUSHROOM** o **HONEY SYRUP** dando clic al icono respectivo cuando este aparezca en el baúl.
+- Una vez seleccionado el item, puede seleccionar a algún aliado para que use el objeto.
+- Tanto las interfaces de **SOLO** como de **ITEM** son retroactivas para sí mismas como entre ellas (se puede arrepentir), y el **RUN** también las desactiva. Volviendo en cualquier caso a la fase de espera inicial.
+- La batalla se pierde además de por los turnos cedidos, porque mueren ambos jugadores (figura 8), se gana cuando se alcanzan 5 victorias derrotando a todos los enemigos por ronda, bajo todas las restricciones previamente mencionadas (figura 9).
+
+### Diagrama UML
+
+![Diagrama UML final](UML_Diagram_T3_Final_Model.png)
+`Figura 10: Diagrama UML final de la aplicación.`
+
+_Tarea del curso CC3002-1: Metodologías de Diseño y Programación - Primavera 2021._

@@ -455,7 +455,7 @@ public class GameController {
 	 *
 	 * @param numberOfRandomEnemies The number of enemies to be added.
 	 */
-	public void addRandomEnemiesToTheTurn(int numberOfRandomEnemies) {
+	private void addRandomEnemiesToTheTurn(int numberOfRandomEnemies) {
 		Random rand = new Random();
 		for (int i = 0; i < numberOfRandomEnemies; i++) {
 			if (seed != 0) {
@@ -639,7 +639,7 @@ public class GameController {
 	 * respective list (queue) depending on the turn for {@code IPlayer}s
 	 * or for {@code IEnemy}s.
 	 */
-	public void finishTurn() {
+	private void finishTurn() {
 		//Filter list of turns
 		playersInTurn.removeIf(IPlayer::isKo);
 		enemiesInTurn.removeIf(IEnemy::isKo);
