@@ -59,12 +59,14 @@ public class playersAndItemsTest {
     @Test
     public void constructorLuisTest() { //First message test.
         testLuis.typicalPhrase();
+        assertEquals("Luis", testLuis.getName());
         assertEquals("Here we go!", outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void constructorMarcosTest() { //Second message test.
         testMarcos.typicalPhrase();
+        assertEquals("Marcos", testMarcos.getName());
         assertEquals("Let's-a go!", outputStreamCaptor.toString().trim());
     }
 

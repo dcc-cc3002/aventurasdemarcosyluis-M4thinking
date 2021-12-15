@@ -3,6 +3,7 @@ module com.example.aventurasdemarcoyluis {
     requires javafx.fxml;
     requires javafx.graphics;
 	requires org.jetbrains.annotations;
+	requires java.desktop;
 
     opens com.example.aventurasdemarcoyluis.view to javafx.fxml;
     exports com.example.aventurasdemarcoyluis.view;
@@ -24,4 +25,7 @@ module com.example.aventurasdemarcoyluis {
 
     exports com.example.aventurasdemarcoyluis.controller.phases;
     opens com.example.aventurasdemarcoyluis.controller.phases to javafx.fxml;
+
+    exports com.example.aventurasdemarcoyluis.controller.phases.exceptions;
+    exports com.example.aventurasdemarcoyluis.controller;
  }

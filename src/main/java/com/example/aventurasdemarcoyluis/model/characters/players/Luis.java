@@ -73,4 +73,9 @@ public class Luis extends AbstractPlayer implements IScaredPlayer {
         }
         return attackableEnemies;
     }
+
+    @Override
+    public String getName() {
+        return "Luis";
+    }
 }

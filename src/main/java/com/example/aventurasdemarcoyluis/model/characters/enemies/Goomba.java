@@ -66,4 +66,9 @@ public class Goomba extends AbstractEnemy implements IGenericEnemy {
         }
         return attackablePlayers;
     }
+
+    @Override
+    public String getName() {
+        return "Goomba";
+    }
 }

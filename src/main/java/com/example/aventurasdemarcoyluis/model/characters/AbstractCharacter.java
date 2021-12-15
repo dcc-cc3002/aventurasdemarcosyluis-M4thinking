@@ -1,5 +1,7 @@
 package com.example.aventurasdemarcoyluis.model.characters;
 
+import java.util.Random;
+
 /**
  * Represents the character's behavior.
  * <p>
@@ -13,6 +15,7 @@ public abstract class AbstractCharacter implements ICharacter{
     protected int hp;
     protected int maxHp;
     protected int lvl;
+    protected long seed;
 
     /**
      * Creates a new Character.
@@ -27,6 +30,21 @@ public abstract class AbstractCharacter implements ICharacter{
         maxHp = HP;
         lvl = LVL;
         setAtk(ATK);
+        this.seed = 0;
+    }
+
+    @Override
+    public void setSeed(long seed){
+        this.seed = seed;
+    }
+
+    @Override
+    public int dice(int numberOfFaces) {
+        Random rand = new Random();
+        if (seed != 0) {
+            rand.setSeed(seed);
+        }
+        return rand.nextInt(numberOfFaces);
     }
 
     @Override
@@ -109,5 +127,8 @@ public abstract class AbstractCharacter implements ICharacter{
 
     @Override
     public abstract boolean invariant();
+
+    @Override
+    public abstract String getName();
 }
 

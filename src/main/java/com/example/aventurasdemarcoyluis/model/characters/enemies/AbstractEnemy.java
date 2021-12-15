@@ -10,7 +10,8 @@ import java.util.Random;
 /** Class that represent an enemy in the game. Every enemy must extend this class. */
 public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy {
     private EnemyType type;
-    private long seed;
+    private long failSeed;
+    protected int id;
 
     /**
      * Creates a new Enemy
@@ -28,11 +29,17 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
      */
     protected AbstractEnemy(int ATK, int DEF, int HP, int LVL, EnemyType type ){
         super(ATK, DEF, HP, LVL);
-        this.type=type;
-        this.seed = 0;
+        this.type = type;
+        this.failSeed = 0;
+        this.id = 0;
     }
 
     /* Main characteristics of IEnemy */
+
+    @Override
+    public void setFailSeed(long failSeed){
+        this.failSeed = failSeed;
+    }
 
     @Override
     public EnemyType getType() {
@@ -52,12 +59,7 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
     @Override
     public abstract void attack(IPlayer aPlayer);
 
-    /*Attack logic from IEnemyAttack*/
-
-    @Override
-    public void setSeed(long seed){
-        this.seed = seed;
-    }
+    /*Attack logic from IEnemy Attack*/
 
     @Override
     public void attackedByPlayer(IPlayer aPlayer, AttackType anAttack) {
@@ -66,8 +68,8 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
 
         //Random Boolean with the probability of failing the attack
         Random rand = new Random();
-        if(seed!=0){
-            rand.setSeed(seed);
+        if(failSeed!=0){
+            rand.setSeed(failSeed);
         }
         boolean doRandomAttack = rand.nextDouble() > anAttack.failProbability;
         if ( doRandomAttack ) { this.setHp(this.getHp() - damage);}
@@ -87,6 +89,16 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
 
     @Override
     public abstract void insult();
+
+    @Override
+    public int getId(){
+        return id;
+    }
+
+    @Override
+    public void setId(int id){
+        this.id = id;
+    }
 
     /**
      * Overwriting the equals method based on enemy's statistics of {@code atk},
@@ -109,7 +121,8 @@ public abstract class AbstractEnemy extends AbstractCharacter implements IEnemy 
                 && getLvl() == anEnemy.getLvl()
                 && getMaxHp() == anEnemy.getMaxHp()
                 && getType() == anEnemy.getType()
-                && getClass() == anEnemy.getClass();
+                && getClass() == anEnemy.getClass()
+                && getId() == anEnemy.getId();
     }
 
     /**

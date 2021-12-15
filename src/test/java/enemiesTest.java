@@ -47,18 +47,27 @@ public class enemiesTest {
     @Test
     public void constructorGoombaTest() { //First message test.
         testGoomba.insult();
+        assertEquals("Goomba", testGoomba.getName());
+        testGoomba.setId(1);
+        assertEquals("Goomba", testGoomba.getName()); // Take care, name is the same
         assertEquals("frrr, frrr, it's Goomba!", outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void constructorBooTest() { //Second message test.
         testBoo.insult();
+        assertEquals("Boo", testBoo.getName());
+        testBoo.setId(1);
+        assertEquals("Boo", testBoo.getName()); // Take care, name is the same
         assertEquals("I'm Boo and I'm going to scare you!", outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void constructorSpinyTest() { //Third message test.
         testSpiny.insult();
+        assertEquals("Spiny", testSpiny.getName());
+        testSpiny.setId(1);
+        assertEquals("Spiny", testSpiny.getName());// Take care, name is the same
         assertEquals("I'm going to prick you. Ouch!", outputStreamCaptor.toString().trim());
     }
 
@@ -94,6 +103,10 @@ public class enemiesTest {
         assertNotEquals(anotherGoomba,testMarcos);
 
         assertEquals(anotherGoomba,anotherGoomba);
+
+        anotherGoomba.setId(1);
+
+        assertNotEquals(anotherGoomba,testGoomba); // Take care, they are not the same by the id
     }
 
 
