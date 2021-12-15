@@ -3,6 +3,7 @@ package com.example.aventurasdemarcoyluis.model.characters.enemies.enemiesfactor
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Goomba;
 
 public class GoombaFactory extends Goomba implements EnemiesFactory {
+	private int factoryId;
 	/**
 	 * Creates a new Enemy "Goomba".
 	 *
@@ -13,10 +14,14 @@ public class GoombaFactory extends Goomba implements EnemiesFactory {
 	 */
 	public GoombaFactory(int ATK, int DEF, int HP, int LVL) {
 		super(ATK, DEF, HP, LVL);
+		this.factoryId = 0;
 	}
 
 	@Override
 	public Goomba create() {
-		return new Goomba(atk,def,hp,lvl);
+		this.factoryId++;
+		Goomba goomba = new Goomba(atk,def,hp,lvl);
+		goomba.setId(factoryId);
+		return goomba;
 	}
 }

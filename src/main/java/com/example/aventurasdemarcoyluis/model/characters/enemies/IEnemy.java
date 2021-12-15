@@ -83,13 +83,6 @@ public interface IEnemy extends ICharacter {
     List<IPlayer> getAttackablePlayers(List<IPlayer> listOfPlayers);
 
     /**
-     * Allows to fix the results after attacks with probability with a seed
-     * @param seed Number that fixes the obtained results
-     */
-    void setSeed(long seed);
-
-
-    /**
      * Delivers confirmation of whether this enemy
      * is attackable by a {@code IGenericPlayer}.
      * @param aPlayer The player that is verified
@@ -104,4 +97,22 @@ public interface IEnemy extends ICharacter {
      * @return {@code true} if the player can attack it, {@code false} if not.
      */
     boolean isAttackableBy(IScaredPlayer aPlayer);
+
+    /**
+     * Allows to fix the results after attacks with probability with a seed
+     * @param seed Number that fixes the obtained results
+     */
+    void setFailSeed(long seed);
+
+    /**
+     * Give the enemy's own identifier.
+     * @return {@code IEnemy} identifier.
+     */
+    int getId();
+
+    /**
+     * Set the enemy's own identifier.
+     * @param id {@code IEnemy} identifier.
+     */
+    void setId(int id);
 }

@@ -74,4 +74,9 @@ public class Marcos extends AbstractPlayer implements IGenericPlayer {
         }
         return attackableEnemies;
     }
+
+    @Override
+    public String getName() {
+        return "Marcos";
+    }
 }

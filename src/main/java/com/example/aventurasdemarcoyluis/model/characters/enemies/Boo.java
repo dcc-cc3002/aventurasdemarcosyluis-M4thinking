@@ -81,4 +81,9 @@ public class Boo extends AbstractEnemy implements IEspectralEnemy, ISpecialReact
         }
         return attackablePlayers;
     }
+
+    @Override
+    public String getName() {
+        return "Boo";
+    }
 }

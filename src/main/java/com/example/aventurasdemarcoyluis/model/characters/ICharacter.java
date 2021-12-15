@@ -4,6 +4,21 @@ package com.example.aventurasdemarcoyluis.model.characters;
 public interface ICharacter {
 
     /**
+     * Seed to fix the results, if it is 0 it is understood randomness
+     * @param seed New seed to be stable.
+     */
+    void setSeed(long seed);
+
+    /**
+     * Abstraction of a dice with homogeneous probability
+     * distribution with respect to its faces, is
+     * deterministic if the current seed is different from zero.
+     * @param numberOfFaces Number of faces of the dice.
+     * @return Face result indexed from zero.
+     */
+    int dice(int numberOfFaces);
+
+    /**
      * Gets the attack points.
      * @return Attack points.
      */
@@ -100,5 +115,11 @@ public interface ICharacter {
      * @return {@code true} if constraints and edge cases are met, false if not.
      */
     boolean invariant();
+
+    /**
+     * Get the character's name
+     * @return Character's name
+     */
+    String getName();
 
 }

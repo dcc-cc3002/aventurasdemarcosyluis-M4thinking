@@ -81,5 +81,10 @@ public class Spiny extends AbstractEnemy implements IGenericEnemy, ISpecialReact
         }
         return attackablePlayers;
     }
+
+    @Override
+    public String getName() {
+        return "Spiny";
+    }
 }
 

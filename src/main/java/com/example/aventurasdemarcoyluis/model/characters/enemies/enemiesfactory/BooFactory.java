@@ -3,6 +3,8 @@ package com.example.aventurasdemarcoyluis.model.characters.enemies.enemiesfactor
 import com.example.aventurasdemarcoyluis.model.characters.enemies.Boo;
 
 public class BooFactory extends Boo implements EnemiesFactory {
+	private int factoryId;
+
 	/**
 	 * Creates a new Enemy "Boo".
 	 *
@@ -13,10 +15,14 @@ public class BooFactory extends Boo implements EnemiesFactory {
 	 */
 	public BooFactory(int ATK, int DEF, int HP, int LVL) {
 		super(ATK, DEF, HP, LVL);
+		this.factoryId = 0;
 	}
 
 	@Override
 	public Boo create() {
-		return new Boo(atk,def,hp,lvl);
+		this.factoryId++;
+		Boo boo = new Boo(atk,def,hp,lvl);
+		boo.setId(factoryId);
+		return boo;
 	}
 }
