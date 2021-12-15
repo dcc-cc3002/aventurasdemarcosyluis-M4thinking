@@ -502,7 +502,7 @@ Para el caso especial de interacción del usuario se crearon fases adicionales q
 
 Así creó un diagrama de flujo tipo, para llevar a cabo las fases del juego mediante el State Pattern.
 
-![Diagrama de flujo](Flux_Diagram.png)
+![Diagrama de flujo](Flux_Diagram.jpg)
 
 `Figura 5: Diagrama de flujo tentativo, "Enemies Phase" es una fase virtual de paso instantáneo.`
 
