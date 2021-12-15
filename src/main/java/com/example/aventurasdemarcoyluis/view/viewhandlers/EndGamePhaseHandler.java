@@ -1,11 +1,11 @@
 package com.example.aventurasdemarcoyluis.view.viewhandlers;
 
-import com.example.aventurasdemarcoyluis.controller.handlers.IHandler;
 import com.example.aventurasdemarcoyluis.view.GameGUI;
 
 import java.beans.PropertyChangeEvent;
 import java.io.FileNotFoundException;
 
+/** Observer of the end of game, which allows to give notice from the controller in sight. */
 public class EndGamePhaseHandler implements IViewHandler {
 	private final GameGUI view;
 

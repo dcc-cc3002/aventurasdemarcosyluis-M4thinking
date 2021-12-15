@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
+/** Class that allows building a button with all its relevant characteristics for the game interface. */
 public class ButtonBuilder {
 	private final Group group;
 	private int xPos;

@@ -3,6 +3,7 @@ package com.example.aventurasdemarcoyluis.controller.phases;
 import com.example.aventurasdemarcoyluis.controller.phases.exceptions.InvalidMovementException;
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 
+/** Waiting phase of the enemy to be attacked. */
 public class WaitAttackablePhase extends Phase{
 	private final AttackType attackType;
 

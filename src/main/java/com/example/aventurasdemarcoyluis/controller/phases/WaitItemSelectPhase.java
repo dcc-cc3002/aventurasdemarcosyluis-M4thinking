@@ -2,6 +2,7 @@ package com.example.aventurasdemarcoyluis.controller.phases;
 
 import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
 
+/** Item selection waiting phase. */
 public class WaitItemSelectPhase extends Phase{
 
 	@Override

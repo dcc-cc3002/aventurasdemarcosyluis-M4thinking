@@ -8,7 +8,7 @@ import javafx.scene.text.FontWeight;
 
 import java.io.FileNotFoundException;
 
-
+/** Class that allows building a label with all its relevant characteristics for the game interface. */
 public class LabelBuilder {
 	private final Group group;
 	private int xPos;
@@ -81,9 +81,6 @@ public class LabelBuilder {
 	/**
 	 * Create the {@code Label} with all characteristics set at the moment
 	 * @return Return a {@code Label}.
-	 * @throws FileNotFoundException <p>
-	 *     if the path is not found it will throw an exception
-	 * </p>
 	 */
 	public Label build() {
 		Label label = new Label();

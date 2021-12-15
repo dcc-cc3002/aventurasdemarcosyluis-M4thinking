@@ -1,11 +1,11 @@
 package com.example.aventurasdemarcoyluis.view.viewhandlers;
 
-import com.example.aventurasdemarcoyluis.controller.handlers.IHandler;
 import com.example.aventurasdemarcoyluis.view.GameGUI;
 
 import java.beans.PropertyChangeEvent;
 import java.io.FileNotFoundException;
 
+/** Observer of the start of a new battle, which allows to give warning from the controller in sight. */
 public class NewBattlePhaseHandler implements IViewHandler {
 	private final GameGUI view;
 

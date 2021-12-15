@@ -2,6 +2,7 @@ package com.example.aventurasdemarcoyluis.controller.phases;
 
 import com.example.aventurasdemarcoyluis.model.characters.attackconfig.AttackType;
 
+/** Attack type waiting phase. */
 public class WaitAttackPhase extends Phase{
 
 	@Override

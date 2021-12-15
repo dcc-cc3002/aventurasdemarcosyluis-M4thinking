@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/** Class that allows you to create a node in a summarized way or using the builder. */
 public class StaticNode {
 	private final int imgHeight;
 	private final int imgWidth;

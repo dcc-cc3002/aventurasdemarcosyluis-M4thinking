@@ -1,5 +1,6 @@
 package com.example.aventurasdemarcoyluis.controller.phases;
 
+/** Initial waiting phase of the game. */
 public class WaitPhase extends Phase {
 
 	@Override

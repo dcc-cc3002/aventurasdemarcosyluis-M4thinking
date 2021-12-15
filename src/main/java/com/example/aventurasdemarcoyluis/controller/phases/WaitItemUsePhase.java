@@ -3,6 +3,7 @@ package com.example.aventurasdemarcoyluis.controller.phases;
 import com.example.aventurasdemarcoyluis.controller.phases.exceptions.InvalidMovementException;
 import com.example.aventurasdemarcoyluis.model.itemsconfig.IItem;
 
+/** Items usage waiting phase. */
 public class WaitItemUsePhase extends Phase{
 	private final IItem anItem;
 

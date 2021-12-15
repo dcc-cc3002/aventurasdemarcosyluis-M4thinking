@@ -3,6 +3,7 @@ package com.example.aventurasdemarcoyluis.view.nodes;
 import javafx.scene.Group;
 import java.io.FileNotFoundException;
 
+/** Class that allows building a node with all its relevant characteristics for the game interface. */
 public class StaticNodeBuilder {
 	private final Group group;
 	private int xPos;

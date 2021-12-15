@@ -27,6 +27,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * View of the model, which allows to show the main players,
+ * the enemies, the game options and the statistics, as well
+ * as an initial menu and a defeat/victory interface when
+ * the game ends.
+ */
 public class GameGUI extends Application {
 	private static final String RESOURCE_PATH = "src/main/resources/";
 	private final Group root = new Group();

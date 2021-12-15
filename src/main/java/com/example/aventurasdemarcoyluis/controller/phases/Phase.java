@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintStream;
 
+/** Class that represents the transitions that the rest of the phases will have. */
 public class Phase {
 	protected GameController controller;
 	protected PrintStream errorStream = System.out; // By default

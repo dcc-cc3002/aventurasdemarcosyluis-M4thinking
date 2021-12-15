@@ -1,5 +1,6 @@
 package com.example.aventurasdemarcoyluis.controller.phases;
 
+/** Initial phase of the game. */
 public class StartPhase extends Phase{
 
 	@Override

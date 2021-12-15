@@ -482,7 +482,7 @@ como al cliente.
 
 #### Paso 8: Diagramas UML terminada la Tarea 2.
 
-A continuación se muestra el diagrama de clases del modelo completo y un resumen de la clases para tener una idea más general
+A continuación se muestra el diagrama de clases del modelo completo y un resumen de las clases para tener una idea más general
 de la programación del juego hasta el momento.
 
 ![Diagrama UML completo](UML_Diagram_T2_ModelComplete.png)
